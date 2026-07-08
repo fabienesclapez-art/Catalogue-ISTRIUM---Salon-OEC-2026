@@ -108,11 +108,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
   </div>
   <div class="gate-hero">
     <h1>Catalogue des<br>financements publics</h1>
-    <p>Les principaux dispositifs accessibles à vos clients PME, ETI et startups — crédits d'impôts, statuts, subventions.</p>
+    <p>Les principaux dispositifs accessibles à vos clients PME, ETI et startups.</p>
   </div>
   <div class="gate-form">
     <h2>Accéder au catalogue</h2>
-    <p class="sub">Renseignez vos coordonnées pour consulter l'ensemble des fiches et les points clés pour vos clients.</p>
+    <p class="sub">Renseignez vos coordonnées pour consulter l'ensemble des fiches.</p>
     <div class="form-group">
       <label>E-mail professionnel</label>
       <input type="email" id="inp-email" placeholder="prenom.nom@cabinet.fr">
@@ -121,8 +121,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
       <label>Téléphone</label>
       <input type="tel" id="inp-tel" placeholder="06 XX XX XX XX">
     </div>
-    <button class="btn-access" onclick="handleAccess()">Accéder au catalogue →</button>
-    <p class="mention">Vos coordonnées sont transmises à Istrium dans le cadre d'un partenariat expert-comptable et ne seront pas communiquées à des tiers.</p>
+    <button class="btn-access" onclick="handleAccess()">Accéder au catalogue</button>
+    <p class="mention">Vos coordonnées sont transmises à Istrium dans le cadre d'un partenariat expert-comptable.</p>
   </div>
 </div>
 
@@ -138,14 +138,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
   <div class="cat-intro">
     <div class="accent-bar"></div>
     <h2>Dispositifs de financement</h2>
-    <p>Cliquez sur une fiche pour le détail et l'exemple chiffré.</p>
+    <p>Cliquez sur une fiche pour le detail et l'exemple chiffre.</p>
   </div>
   <div class="filter-row">
     <div class="chip active" onclick="filterCards('tous',this)">Tous</div>
-    <div class="chip" onclick="filterCards('fiscal',this)">Crédits d'impôts</div>
+    <div class="chip" onclick="filterCards('fiscal',this)">Credits d'impots</div>
     <div class="chip" onclick="filterCards('statut',this)">Statuts</div>
-    <div class="chip" onclick="filterCards('regional',this)">Région Sud</div>
-    <div class="chip" onclick="filterCards('ecologie',this)">Écologie</div>
+    <div class="chip" onclick="filterCards('regional',this)">Region Sud</div>
+    <div class="chip" onclick="filterCards('ecologie',this)">Ecologie</div>
     <div class="chip" onclick="filterCards('digital',this)">Digital</div>
     <div class="chip" onclick="filterCards('viticole',this)">Viticole</div>
     <div class="chip" onclick="filterCards('tourisme',this)">Tourisme</div>
@@ -153,11 +153,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
   <div class="cards-wrap" id="cards-grid"></div>
   <div class="leads-section">
     <button class="leads-toggle" onclick="askPin()">
-      <i class="ti ti-lock"></i> Accès Istrium
+      <i class="ti ti-lock"></i> Acces Istrium
     </button>
     <div class="leads-table leads-hidden" id="leads-panel">
       <div id="leads-list"><p style="font-size:13px;color:#ccc;padding:4px 0;">Aucun contact pour l'instant.</p></div>
-      <button onclick="exportCSV()" id="btn-export" style="display:none;margin-top:12px;width:100%;padding:10px;background:var(--grad);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;">⬇ Télécharger les contacts (Excel/CSV)</button>
+      <button onclick="exportCSV()" id="btn-export" style="display:none;margin-top:12px;width:100%;padding:10px;background:var(--grad);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;">Telecharger les contacts (CSV)</button>
     </div>
   </div>
 </div>
@@ -171,264 +171,284 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
 </div>
 
 <script>
-const LEADS=[];
-const TAG={fiscal:'Crédit d\'impôt',statut:'Statut',regional:'Région Sud',ecologie:'Écologie',digital:'Digital',viticole:'Viticole',tourisme:'Tourisme'};
+var LEADS=[];
+var TAG={fiscal:"Credit d'impot",statut:"Statut",regional:"Region Sud",ecologie:"Ecologie",digital:"Digital",viticole:"Viticole",tourisme:"Tourisme"};
 
-const D=[
-  {id:'cima',name:'CIMA',full:'Crédit d\'impôt métiers d\'art',type:'fiscal',
-   desc:'Aide fiscale pour réduire l\'impôt des entreprises exerçant des métiers d\'art. Rétroactivité possible sur 3 ans. Prorogé jusqu\'au 31/12/2026.',
-   cible:'Sociétés dont > 30 % de la masse salariale est en métier d\'art, entreprises labellisées EPV, ameublement, bijouterie, lutherie, lunetterie, arts de la table',
-   montant:'10 % des dépenses — 15 % pour entreprises labellisées EPV',plafond:'30 000 € annuels',delai:'Déclaration avec liasse fiscale — rétroactivité 3 ans possible',
-   contexte:'Aide fiscale permettant à une entreprise de réduire son impôt dû, voire de bénéficier d\'un remboursement si le montant du crédit est supérieur à l\'impôt à payer, avec une rétroactivité possible sur 3 ans. Dispositif prorogé jusqu\'au 31/12/2026.',
-   projets:'Ouvrages réalisés en un exemplaire ou petite série, justifiant d\'une mise au point spécifique et d\'une originalité par rapport aux productions antérieures.\n\nDépenses éligibles : salaires, amortissements, frais de dépôt/défense de modèles, prestations de stylisme externes.\n\nRestriction : seuls les biens meubles corporels sont éligibles — sauf pour la restauration du patrimoine. Les prestations de service et productions immobilières (charpentes, toitures…) sont exclues.',
-   points:['La frontière meuble/immeuble est déterminante : un escalier sur mesure peut être éligible, une charpente intégrée au bâti ne l\'est pas','L\'originalité de l\'ouvrage doit être prouvée (plans, prototypes, absence de reproduction à l\'identique)','Un dossier complet (justificatifs, photos, croquis, fiches de temps) est indispensable pour sécuriser en cas de contrôle','En cas de doute, un rescrit fiscal permet de valider l\'éligibilité du projet en amont'],
-   conseils:[],
-   exemple:[{l:'Masse salariale dédiée aux métiers d\'art',v:'200 000 €'},{l:'Taux du crédit d\'impôt',v:'10 %'},{l:'Crédit d\'impôt obtenu',v:'20 000 €'},{l:'Si labellisé EPV (taux 15 %)',v:'30 000 €'},{l:'Rétroactivité sur 3 ans possible',v:'Jusqu\'à 90 000 €'}]},
+var D=[
+{id:"cima",name:"CIMA",full:"Credit impot metiers d'art",type:"fiscal",
+ desc:"Aide fiscale pour reduire l'impot des entreprises exercant des metiers d'art. Retroactivite possible sur 3 ans. Proroge jusqu'au 31/12/2026.",
+ cible:"Societes dont plus de 30% de la masse salariale est en metier d'art, entreprises labellisees EPV, ameublement, bijouterie, lutherie, lunetterie, arts de la table",
+ montant:"10% des depenses — 15% pour entreprises labellisees EPV",plafond:"30 000 EUR annuels",delai:"Declaration avec liasse fiscale — retroactivite 3 ans possible",
+ contexte:"Aide fiscale permettant a une entreprise de reduire son impot du, voire de beneficier d'un remboursement si le montant du credit est superieur a l'impot a payer, avec une retroactivite possible sur 3 ans. Dispositif proroge jusqu'au 31/12/2026.",
+ projets:"Ouvrages realises en un exemplaire ou petite serie, justifiant d'une mise au point specifique et d'une originalite par rapport aux productions anterieures.\n\nDepenses eligibles : salaires, amortissements, frais de depot/defense de modeles, prestations de stylisme externes.\n\nRestriction : seuls les biens meubles corporels sont eligibles — sauf pour la restauration du patrimoine.",
+ points:["La frontiere meuble/immeuble est determinante : un escalier sur mesure peut etre eligible, une charpente integree au bati ne l'est pas","L'originalite de l'ouvrage doit etre prouvee (plans, prototypes, absence de reproduction a l'identique)","Un dossier complet (justificatifs, photos, croquis, fiches de temps) est indispensable pour securiser en cas de controle","En cas de doute, un rescrit fiscal permet de valider l'eligibilite du projet en amont"],
+ conseils:[],
+ exemple:[{l:"Masse salariale dediee aux metiers d'art",v:"200 000 EUR"},{l:"Taux du credit d'impot",v:"10%"},{l:"Credit d'impot obtenu",v:"20 000 EUR"},{l:"Si labellise EPV (taux 15%)",v:"30 000 EUR"},{l:"Retroactivite sur 3 ans possible",v:"Jusqu'a 90 000 EUR"}]},
 
-  {id:'jei',name:'JEI / JEII',full:'Jeune Entreprise Innovante / Jeune Entreprise Innovante à Impact',type:'statut',
-   desc:'JEI : statut historique de soutien à la R&D. JEII (LFI 2026) : nouveau statut pour les entreprises alliant innovation et impact ESS.',
-   cible:'PME < 8 ans (ou 11 ans si créée avant 01/01/2023), indépendantes, activité réellement nouvelle, CA < 50 M€ ou bilan < 43 M€',
-   montant:'Exonération IS + cotisations patronales exonérées sur personnels R&D/Innovation',plafond:'Plafonds par établissement et par salarié',delai:'Qualification possible dès la création — à anticiper',
-   contexte:'Le statut JEI permet de soutenir et accélérer la R&D des jeunes PME innovantes. La LFI 2026 crée le statut JEII pour les entreprises alliant innovation et impact durable (ESS ou agrément ESUS).',
-   projets:'JEI — Conditions : dépenses de R&D ≥ 20 % des charges, capital détenu à 50 % min par des personnes physiques ou structures éligibles.\nAvantages : allègement de cotisations sociales sur les personnels R&D, exonérations fiscales, renforcement de la crédibilité auprès des investisseurs.\n\nJEII — Conditions spécifiques : dépenses de R&D entre 5 % et 20 % des charges + justifier d\'une mission d\'impact via l\'appartenance à l\'ESS ou par l\'obtention de l\'agrément ESUS.\nAvantages JEII : CFE/TFPB exonération jusqu\'à 7 ans, exonération IS 1er exercice bénéficiaire (si créée avant 2024), cotisations patronales exonérées sur personnel R&D/Innovation.',
-   points:['JEII : CFE/TFPB exonération possible jusqu\'à 7 ans, sur délibération locale','JEII : exonération à 100 % du 1er exercice bénéficiaire, uniquement pour les entreprises créées avant 2024','JEII : cotisations patronales exonérées sur personnel R&D/Innovation','JEII : cumul Crédit d\'Impôt Recherche possible, hors régimes d\'exonération territoriaux','JEII réservé aux sociétés créées avant le 31/12/2028'],
-   conseils:[],
-   exemple:[{l:'Masse salariale R&D annuelle',v:'300 000 €'},{l:'Cotisations patronales (~ 45 %)',v:'135 000 €'},{l:'Exonération cotisations JEI',v:'Jusqu\'à 135 000 €/an'},{l:'Économie sur 3 ans',v:'~ 400 000 €'},{l:'+ Exonération IS 1er exercice bénéficiaire',v:'100 % (si éligible)'}]},
+{id:"cirBpi",name:"CIR & Aides Bpifrance",full:"Evolution jurisprudentielle — positions a securiser",type:"fiscal",
+ desc:"Le traitement des aides Bpifrance dans le calcul du CIR fait debat. Une decision du TA de Paris (janvier 2026) change la donne pour les exercices passes.",
+ cible:"Entreprises beneficiaires du CIR ayant recu des aides Bpifrance",
+ montant:"Enjeu variable selon les montants de CIR et d'aides Bpifrance recues",plafond:"Impact potentiel sur les exercices anterieurs a 2025",delai:"LFI 2025 applicable pour l'avenir — exercices passes encore discutes",
+ contexte:"Le traitement des aides Bpifrance dans le calcul du CIR fait aujourd'hui debat. Jusqu'a present, la pratique consistait a deduire les aides publiques des depenses eligibles afin d'eviter tout double financement public.\n\nLa loi de finances 2025 est venue recadrer clairement le traitement pour l'avenir, en confirmant l'obligation de deduction. En revanche, ces incertitudes demeurent pour les exercices anterieurs.\n\nLe Tribunal administratif de Paris (janvier 2026) retient une lecture differente : les aides Bpifrance n'auraient pas a etre deduites du CIR, car Bpifrance n'est pas une entite de droit public.",
+ projets:"Deux situations a distinguer :\n\nPour les exercices a partir de 2025 (LFI 2025) : obligation de deduire les aides Bpifrance des depenses eligibles au CIR — cadre clarifie.\n\nPour les exercices anterieurs a 2025 : position encore discutee. Le TA de Paris (janvier 2026) considere que Bpifrance n'est pas une entite de droit public, donc ses aides n'auraient pas a etre deduites du CIR. Des opportunites de reclamation ou de securisation de positions existent selon les situations.",
+ points:["LFI 2025 confirme l'obligation de deduction pour l'avenir — cadre stabilise","Pour les exercices anterieurs, la jurisprudence TA Paris (janvier 2026) ouvre des possibilites de positions alternatives","Risque de prescription : agir rapidement pour preserver les droits sur les exercices passes","Istrium accompagne dans la definition de la strategie la plus adaptee a chaque situation"],
+ conseils:["Evaluez vos enjeux des a present : identifiez les impacts potentiels sur votre CIR et les exercices concernes, sans precipiter vos prises de position.","Tenez compte d'un cadre non stabilise : la jurisprudence recente coexiste avec une doctrine fiscale et un cadre legislatif encore en evolution.","Appreciez les differentes positions possibles : selon votre situation, il est possible d'adopter des approches differentes, avec des niveaux de risque distincts.","Preservez vos droits et vos marges de manoeuvre : anticipez les options permettant d'eviter la prescription et de conserver la possibilite d'ajuster votre position."],
+ exemple:[{l:"Aides Bpifrance recues sur 3 exercices",v:"500 000 EUR"},{l:"CIR declare (avant deduction)",v:"300 000 EUR"},{l:"Pratique actuelle (avec deduction)",v:"CIR reduit"},{l:"Selon TA Paris 2026",v:"Pas de deduction requise"},{l:"Enjeu potentiel",v:"A evaluer au cas par cas"}]},
 
-  {id:'f2030paca',name:'France 2030 PACA',full:'France 2030 Régionalisé — Deadline 30/09/2026',type:'regional',
-   desc:'Soutient les PME et ETI de PACA dans leurs projets d\'innovation à fort potentiel, technologique ou non. Cofinancé État + Région Sud.',
-   cible:'PME et ETI implantées en PACA',
-   montant:'Faisabilité : 75 k€ à 200 k€ (subvention) / Développement : 75 k€ à 500 k€ (avance remboursable)',plafond:'Assiette min. 150 k€ (PME) / 300 k€ (ETI). Fonds propres ≥ montant d\'aide demandé',delai:'Ouvert jusqu\'au 30/09/2026 dans la limite des fonds disponibles',
-   contexte:'Cet appel à projets soutient les PME et ETI de Provence-Alpes-Côte d\'Azur dans leurs projets d\'innovation à fort potentiel, technologique ou non. Cofinancé par l\'État et la Région, il cible des projets structurants alignés sur les priorités du SRDEII, de la S3 ou du Plan Climat.',
-   projets:'Deux phases soutenues :\n• Faisabilité (max 18 mois) : études de marché ou d\'usage, validations techniques, études PI ou réglementaires, preuve de concept, planification RDI.\n• Développement/Pré-industrialisation (max 24 mois) : première série industrielle, montée en échelle, innovation de process ou de service.\n\nDomaines stratégiques éligibles : Naturalité, Énergie (stockage, hydrogène), Écologie (éco-conception, recyclage), Aérospatial, Défense (cybersécurité, simulation), Optique/Photonique, Chimie verte/Matériaux avancés, Santé/Silver économie, Économie bleue, Culture/Sport/Tourisme.',
-   points:['Condition financière : fonds propres ≥ montant d\'aide demandé','Dépôt en continu jusqu\'au 30/09/2026, dans la limite des crédits disponibles','Assiette minimale de dépenses : 150 k€ pour les PME et 300 k€ pour les ETI','Deux phases distinctes : subvention (faisabilité) et avance remboursable (développement)'],
-   conseils:[],
-   exemple:[{l:'Phase Faisabilité — budget projet',v:'400 000 €'},{l:'Subvention (jusqu\'à 50 % des dépenses)',v:'Jusqu\'à 200 000 €'},{l:'Phase Développement — budget projet',v:'1 000 000 €'},{l:'Avance remboursable (jusqu\'à 50 %)',v:'Jusqu\'à 500 000 €'},{l:'Reste à charge (faisabilité)',v:'~ 200 000 €'}]},
+{id:"jei",name:"JEI / JEII",full:"Jeune Entreprise Innovante / Jeune Entreprise Innovante a Impact",type:"statut",
+ desc:"JEI : statut historique de soutien a la R&D. JEII (LFI 2026) : nouveau statut pour les entreprises alliant innovation et impact ESS.",
+ cible:"PME moins de 8 ans (ou 11 ans si creee avant 01/01/2023), independantes, activite reellement nouvelle, CA moins de 50 M EUR",
+ montant:"Exoneration IS + cotisations patronales exonerees sur personnels R&D/Innovation",plafond:"Plafonds par etablissement et par salarie",delai:"Qualification possible des la creation — a anticiper",
+ contexte:"Le statut JEI permet de soutenir et accelerer la R&D des jeunes PME innovantes. La LFI 2026 cree le statut JEII pour les entreprises alliant innovation et impact durable (ESS ou agrement ESUS).",
+ projets:"JEI : depenses de R&D superieur ou egal a 20% des charges, capital detenu a 50% min par des personnes physiques ou structures eligibles.\nAvantages : allegement de cotisations sociales sur les personnels R&D, exonerations fiscales, renforcement de la credibilite aupres des investisseurs.\n\nJEII : depenses de R&D entre 5% et 20% des charges + justifier d'une mission d'impact via l'appartenance a l'ESS ou par l'obtention de l'agrement ESUS.",
+ points:["JEII : CFE/TFPB exoneration possible jusqu'a 7 ans, sur deliberation locale","JEII : exoneration a 100% du 1er exercice beneficiaire, uniquement pour les entreprises creees avant 2024","JEII : cotisations patronales exonerees sur personnel R&D/Innovation","JEII : cumul Credit d'Impot Recherche possible, hors regimes d'exoneration territoriaux","JEII reserve aux societes creees avant le 31/12/2028"],
+ conseils:[],
+ exemple:[{l:"Masse salariale R&D annuelle",v:"300 000 EUR"},{l:"Cotisations patronales (~45%)",v:"135 000 EUR"},{l:"Exoneration cotisations JEI",v:"Jusqu'a 135 000 EUR/an"},{l:"Economie sur 3 ans",v:"~400 000 EUR"},{l:"+ Exoneration IS 1er exercice beneficiaire",v:"100% (si eligible)"}]},
 
-  {id:'axesSud2030',name:'Région Sud 2030',full:'3 axes stratégiques : Bois · Défense · Économie à impact',type:'regional',
-   desc:'La Région Sud concentre ses financements 2026-2030 sur trois filières : filière bois, industries de défense et économie à impact/ESS.',
-   cible:'PME, ETI, startups innovantes, entreprises de l\'ESS',
-   montant:'Selon nature, maturité et impact des projets — Subvention ou avance remboursable',plafond:'Filière Bois : jusqu\'à 2,3 Md€ / Défense : objectif 300 M€ sur 5 ans',delai:'Déploiement progressif jusqu\'à 2030',
-   contexte:'La Région Sud concentre ses financements publics et para-publics autour de trois filières stratégiques afin de répondre aux enjeux de souveraineté, de transition écologique et de cohésion territoriale. À partir de 2026, l\'objectif est d\'accélérer la montée en puissance de projets structurants capables de changer d\'échelle.',
-   projets:'FILIÈRE BOIS – Accélération industrielle : construction biosourcée et ouvrages bois (JO 2030), création/modernisation de scieries et unités de transformation, reboisement et structuration de l\'amont forestier. Jusqu\'à 2,3 Md€ mobilisable.\n\nINDUSTRIES DE DÉFENSE – Souveraineté technologique : IA, cybersécurité, drones, systèmes autonomes, R&D duale, démonstrateurs, industrialisation, modernisation d\'outils productifs. Objectif : 300 M€ sur 5 ans.\n\nÉCONOMIE À IMPACT / ESS : transition écologique et énergétique, santé/vieillissement/cohésion territoriale, solutions numériques et SaaS à impact.',
-   points:['Fonds fortement sélectifs : projets matures, rentables et alignés avec la stratégie régionale','Anticipation clé : JO d\'hiver 2030, cycles industriels longs, calendriers de décision contraints','Impact attendu démontrable : souveraineté, décarbonation, emploi, ancrage local'],
-   conseils:[],
-   exemple:[{l:'Filière Bois — enveloppe totale',v:'Jusqu\'à 2,3 Md€'},{l:'Filière Défense — objectif régional',v:'300 M€ sur 5 ans'},{l:'Modalités',v:'Subvention ou avance remboursable'},{l:'Cibles',v:'PME, ETI, startups, ESS'},{l:'Horizon',v:'Projets à déposer avant 2030'}]},
+{id:"f2030paca",name:"France 2030 PACA",full:"France 2030 Regionalise — Deadline 30/09/2026",type:"regional",
+ desc:"Soutient les PME et ETI de PACA dans leurs projets d'innovation a fort potentiel, technologique ou non. Cofinance Etat + Region Sud.",
+ cible:"PME et ETI implantees en PACA",
+ montant:"Faisabilite : 75 k EUR a 200 k EUR (subvention) / Developpement : 75 k EUR a 500 k EUR (avance remboursable)",plafond:"Assiette min. 150 k EUR (PME) / 300 k EUR (ETI). Fonds propres superieur ou egal au montant d'aide demande",delai:"Ouvert jusqu'au 30/09/2026 dans la limite des fonds disponibles",
+ contexte:"Cet appel a projets soutient les PME et ETI de Provence-Alpes-Cote d'Azur dans leurs projets d'innovation a fort potentiel, technologique ou non. Cofinance par l'Etat et la Region, il cible des projets structurants alignes sur les priorites du SRDEII, de la S3 ou du Plan Climat.",
+ projets:"Deux phases soutenues :\nFaisabilite (max 18 mois) : etudes de marche ou d'usage, validations techniques, etudes PI ou reglementaires, preuve de concept, planification RDI.\nDeveloppement/Pre-industrialisation (max 24 mois) : premiere serie industrielle, montee en echelle, innovation de process ou de service.\n\nDomaines strategiques eligibles : Naturalite, Energie (stockage, hydrogene), Ecologie (eco-conception, recyclage), Aerospatial, Defense, Optique/Photonique, Chimie verte/Materiaux avances, Sante/Silver economie, Economie bleue, Culture/Sport/Tourisme.",
+ points:["Condition financiere : fonds propres superieur ou egal au montant d'aide demande","Depot en continu jusqu'au 30/09/2026, dans la limite des credits disponibles","Assiette minimale de depenses : 150 k EUR pour les PME et 300 k EUR pour les ETI","Deux phases distinctes : subvention (faisabilite) et avance remboursable (developpement)"],
+ conseils:[],
+ exemple:[{l:"Phase Faisabilite — budget projet",v:"400 000 EUR"},{l:"Subvention (jusqu'a 50% des depenses)",v:"Jusqu'a 200 000 EUR"},{l:"Phase Developpement — budget projet",v:"1 000 000 EUR"},{l:"Avance remboursable (jusqu'a 50%)",v:"Jusqu'a 500 000 EUR"},{l:"Reste a charge (faisabilite)",v:"~200 000 EUR"}]},
 
-  {id:'suddev',name:'Sud Développement',full:'Projets d\'investissement individuels — Région Sud',type:'regional',
-   desc:'Soutient les projets d\'investissement structurants des PME/ETI de PACA pour renforcer leur compétitivité et générer des emplois durables.',
-   cible:'PME et ETI implantées en PACA, ancrées localement avec effectifs et CA significatifs',
-   montant:'Subvention : 100 k€ à 200 k€ / Avance remboursable : 100 k€ à 350 k€',plafond:'Minimum de dépenses éligibles : 500 k€',delai:'Candidatures au fil de l\'eau',
-   contexte:'Dispositif de la Région Sud visant à accompagner les projets structurants des PME/ETI pour renforcer leur compétitivité, générer des emplois durables et stimuler la transition écologique.',
-   projets:'Projets attendus :\n• Modernisation industrielle : installation ou amélioration d\'équipements de production pour optimiser performances et coûts\n• Croissance et montée en capacité : développement de nouvelles lignes de production\n• Implantation : relocalisation ou création de sites de production en région Sud\n• Transition écologique : projets pour réduire l\'empreinte carbone et intégrer des solutions bas carbone',
-   points:['Montant minimum des dépenses éligibles : 500 k€','Taux majoré à 35 % pour projets alignés sur le plan climat "Gardons une cop d\'avance" ou ayant suivi "Le parcours sud industrie 4.0 carbone"','Forme de l\'aide : subvention entre 100 k€ et 200 k€ ou avance remboursable entre 100 k€ et 350 k€','Projets à fort potentiel de création d\'emplois et préservant un savoir-faire artisanal ou industriel emblématique'],
-   conseils:[],
-   exemple:[{l:'Investissement total (modernisation)',v:'700 000 €'},{l:'Dépenses éligibles',v:'600 000 €'},{l:'Subvention obtenue',v:'Jusqu\'à 200 000 €'},{l:'Ou avance remboursable',v:'Jusqu\'à 350 000 €'},{l:'Si projet aligné Plan Climat',v:'Taux majoré à 35 %'}]},
+{id:"axesSud2030",name:"Region Sud 2030",full:"3 axes strategiques : Bois - Defense - Economie a impact",type:"regional",
+ desc:"La Region Sud concentre ses financements 2026-2030 sur trois filieres : filiere bois, industries de defense et economie a impact/ESS.",
+ cible:"PME, ETI, startups innovantes, entreprises de l'ESS",
+ montant:"Selon nature, maturite et impact des projets — Subvention ou avance remboursable",plafond:"Filiere Bois : jusqu'a 2,3 Md EUR / Defense : objectif 300 M EUR sur 5 ans",delai:"Deploiement progressif jusqu'a 2030",
+ contexte:"La Region Sud concentre ses financements publics et para-publics autour de trois filieres strategiques afin de repondre aux enjeux de souverainete, de transition ecologique et de cohesion territoriale. A partir de 2026, l'objectif est d'accelerer la montee en puissance de projets structurants capables de changer d'echelle.",
+ projets:"FILIERE BOIS : construction biosourcee et ouvrages bois (JO 2030), creation/modernisation de scieries et unites de transformation, reboisement et structuration de l'amont forestier. Jusqu'a 2,3 Md EUR mobilisable.\n\nINDUSTRIES DE DEFENSE : IA, cybersecurite, drones, systemes autonomes, R&D duale, demonstrateurs, industrialisation, modernisation d'outils productifs. Objectif : 300 M EUR sur 5 ans.\n\nECONOMIE A IMPACT / ESS : transition ecologique et energetique, sante/vieillissement/cohesion territoriale, solutions numeriques et SaaS a impact.",
+ points:["Fonds fortement selectifs : projets matures, rentables et alignes avec la strategie regionale","Anticipation cle : JO d'hiver 2030, cycles industriels longs, calendriers de decision contraints","Impact attendu demontrable : souverainete, decarbonation, emploi, ancrage local"],
+ conseils:[],
+ exemple:[{l:"Filiere Bois — enveloppe totale",v:"Jusqu'a 2,3 Md EUR"},{l:"Filiere Defense — objectif regional",v:"300 M EUR sur 5 ans"},{l:"Modalites",v:"Subvention ou avance remboursable"},{l:"Cibles",v:"PME, ETI, startups, ESS"},{l:"Horizon",v:"Projets a deposer avant 2030"}]},
 
-  {id:'sudinvest',name:'Sud Investissement',full:'Renforcement des fonds propres — Région Sud',type:'regional',
-   desc:'Levier puissant en fonds propres ou quasi-fonds propres pour les PME de PACA à fort potentiel de croissance, en phase d\'accélération rapide.',
-   cible:'PME implantées en PACA, financièrement saines, non en difficulté, à fort potentiel de développement',
-   montant:'Entre 200 k€ et 2 000 k€',plafond:'Co-investissement privé obligatoire à parité (1 pour 1)',delai:'Candidatures au fil de l\'eau',
-   contexte:'La Région Sud propose un levier puissant pour renforcer les fonds propres des PME à fort potentiel. Dispositif destiné aux entreprises industrielles ou de services innovants en phase de croissance rapide. L\'intervention régionale est conditionnée à un co-investissement privé à parité.',
-   projets:'Projets éligibles :\n• Croissance forte sur marchés à haute valeur ajoutée (déploiement commercial national ou européen)\n• Transformation technologique, numérique, énergétique ou écologique\n• Déploiement de nouveaux process ou modèles innovants (SaaS, circulaire, jumeau numérique)\n• Implantation ou développement en région Sud dans l\'une des 8 filières d\'avenir\n• Création d\'emplois significative sur le territoire régional',
-   points:['Effet de levier obligatoire : co-investissement privé exigé à parité (1 pour 1)','Conditions de gouvernance partagées : mêmes droits entre investisseurs publics et privés','Ciblage sélectif : entreprises à fort potentiel, en lien avec les filières régionales stratégiques','Situation financière saine : entreprises non en difficulté'],
-   conseils:[],
-   exemple:[{l:'Levée de fonds privée',v:'1 000 000 €'},{l:'Apport Région Sud (à parité)',v:'1 000 000 €'},{l:'Total fonds propres renforcés',v:'2 000 000 €'},{l:'Modalité',v:'Fonds propres ou quasi-fonds propres'},{l:'Gouvernance',v:'Droits égaux investisseurs publics/privés'}]},
+{id:"suddev",name:"Sud Developpement",full:"Projets d'investissement individuels — Region Sud",type:"regional",
+ desc:"Soutient les projets d'investissement structurants des PME/ETI de PACA pour renforcer leur competitivite et generer des emplois durables.",
+ cible:"PME et ETI implantees en PACA, ancrees localement avec effectifs et CA significatifs",
+ montant:"Subvention : 100 k EUR a 200 k EUR / Avance remboursable : 100 k EUR a 350 k EUR",plafond:"Minimum de depenses eligibles : 500 k EUR",delai:"Candidatures au fil de l'eau",
+ contexte:"Dispositif de la Region Sud visant a accompagner les projets structurants des PME/ETI pour renforcer leur competitivite, generer des emplois durables et stimuler la transition ecologique.",
+ projets:"Projets attendus :\nModernisation industrielle : installation ou amelioration d'equipements de production pour optimiser performances et couts\nCroissance et montee en capacite : developpement de nouvelles lignes de production\nImplantation : relocalisation ou creation de sites de production en region Sud\nTransition ecologique : projets pour reduire l'empreinte carbone et integrer des solutions bas carbone",
+ points:["Montant minimum des depenses eligibles : 500 k EUR","Taux majore a 35% pour projets alignes sur le plan climat ou ayant suivi le parcours sud industrie 4.0 carbone","Forme de l'aide : subvention entre 100 k EUR et 200 k EUR ou avance remboursable entre 100 k EUR et 350 k EUR","Projets a fort potentiel de creation d'emplois et preservant un savoir-faire artisanal ou industriel emblematique"],
+ conseils:[],
+ exemple:[{l:"Investissement total (modernisation)",v:"700 000 EUR"},{l:"Depenses eligibles",v:"600 000 EUR"},{l:"Subvention obtenue",v:"Jusqu'a 200 000 EUR"},{l:"Ou avance remboursable",v:"Jusqu'a 350 000 EUR"},{l:"Si projet aligne Plan Climat",v:"Taux majore a 35%"}]},
 
-  {id:'sudpretclimat',name:'Sud Prêt Climat',full:'Prêt à taux préférentiel — Région Sud / Bpifrance',type:'ecologie',
-   desc:'Prêt à taux préférentiel à partir de 0,20 % pour financer la transition écologique des PME de PACA, sans garantie personnelle exigée.',
-   cible:'PME (au sens européen), de plus de 3 ans ou disposant de 2 bilans sur 24 mois, financièrement saines',
-   montant:'Prêt entre 10 000 € et 300 000 € — taux préférentiel à partir de 0,20 %',plafond:'Cofinancement obligatoire à parité (1 pour 1) avec apport privé ou concours bancaire',delai:'Candidatures au fil de l\'eau',
-   contexte:'Avec son Plan Climat "Gardons une COP d\'avance", la Région Sud accompagne les PME dans le financement de leurs projets de transition écologique grâce à un prêt à taux préférentiel, en partenariat avec Bpifrance. Prêt sans garantie personnelle exigée.',
-   projets:'Projets finançables :\n• Transition énergétique et bas carbone : installation d\'équipements moins énergivores, flotte de véhicules électriques, autoconsommation solaire\n• Économies et gestion durable de l\'eau : systèmes de récupération d\'eau de pluie, réduction des consommations en process industriel\n• Économie circulaire : mise en place d\'une ligne de recyclage interne, solutions de réparabilité et réemploi\n• Préservation des écosystèmes : projets de dépollution, restauration de zones naturelles\n• Formation des équipes à l\'écoconception',
-   points:['Cofinancement obligatoire à parité (1 pour 1) avec apport privé ou concours bancaire','Exclusion des investissements immobiliers, patrimoniaux et opérations de création d\'entreprise (< 1 an)','Entreprises financièrement saines, à jour de leurs obligations sociales et fiscales','Durée du prêt : 5 ans (1 an de différé) ou 7 ans (2 ans de différé)'],
-   conseils:[],
-   exemple:[{l:'Projet : installation solaire + équipements sobres',v:'200 000 €'},{l:'Prêt Sud Prêt Climat',v:'100 000 €'},{l:'Cofinancement bancaire (à parité)',v:'100 000 €'},{l:'Taux du prêt',v:'À partir de 0,20 %'},{l:'Durée',v:'5 ans (dont 1 an de différé)'},{l:'Garantie personnelle exigée',v:'Aucune'}]},
+{id:"sudinvest",name:"Sud Investissement",full:"Renforcement des fonds propres — Region Sud",type:"regional",
+ desc:"Levier puissant en fonds propres ou quasi-fonds propres pour les PME de PACA a fort potentiel de croissance, en phase d'acceleration rapide.",
+ cible:"PME implantees en PACA, financierement saines, non en difficulte, a fort potentiel de developpement",
+ montant:"Entre 200 k EUR et 2 000 k EUR",plafond:"Co-investissement prive obligatoire a parite (1 pour 1)",delai:"Candidatures au fil de l'eau",
+ contexte:"La Region Sud propose un levier puissant pour renforcer les fonds propres des PME a fort potentiel. L'intervention regionale est conditionnee a un co-investissement prive a parite.",
+ projets:"Projets eligibles :\nCroissance forte sur marches a haute valeur ajoutee (deploiement commercial national ou europeen)\nTransformation technologique, numerique, energetique ou ecologique\nDeploiement de nouveaux process ou modeles innovants (SaaS, circulaire, jumeau numerique)\nImplantation ou developpement en region Sud dans l'une des 8 filieres d'avenir\nCreation d'emplois significative sur le territoire regional",
+ points:["Effet de levier obligatoire : co-investissement prive exige a parite (1 pour 1)","Conditions de gouvernance partagees : memes droits entre investisseurs publics et prives","Ciblage selectif : entreprises a fort potentiel, en lien avec les filieres regionales strategiques","Situation financiere saine : entreprises non en difficulte"],
+ conseils:[],
+ exemple:[{l:"Levee de fonds privee",v:"1 000 000 EUR"},{l:"Apport Region Sud (a parite)",v:"1 000 000 EUR"},{l:"Total fonds propres renforces",v:"2 000 000 EUR"},{l:"Modalite",v:"Fonds propres ou quasi-fonds propres"},{l:"Gouvernance",v:"Droits egaux investisseurs publics/prives"}]},
 
-  {id:'terraNea',name:'Terra Nea',full:'Fonds régional dédié à la transition climatique',type:'ecologie',
-   desc:'Fonds en capital ou quasi-fonds propres entre 1 M€ et 5 M€ pour des projets d\'infrastructure structurants de transition écologique en Région Sud.',
-   cible:'PME et ETI engagées dans une transformation respectueuse de l\'environnement',
-   montant:'Entre 1 M€ et 5 M€ — participation en capital ou quasi-fonds propres',plafond:'Priorité aux projets d\'infrastructure "greenfield" (création de nouvelles capacités)',delai:'Candidatures au fil de l\'eau',
-   contexte:'Terra Nea est le fonds régional dédié à la transition climatique. Il vise à accélérer la transition énergétique et écologique en accompagnant des projets structurants et innovants, renforcer la solidité financière des entreprises par prise de participation directe au capital.',
-   projets:'Projets attendus :\n• Production d\'énergies renouvelables : centrales solaires, parcs éoliens, projets biomasse ou géothermie\n• Stockage et gestion de l\'énergie : smart grids, stations de pompage, bornes de recharge VE\n• Efficacité énergétique et construction durable : bâtiments bas carbone, isolation performante, éclairage public intelligent\n• Mobilité et réseaux intelligents : véhicules électriques ou hydrogène, mobilité partagée et autonome\n• Décarbonation de l\'industrie : électrification de procédés industriels, matériaux bas carbone, logistique verte\n• Économie circulaire : solutions de gestion et valorisation des déchets',
-   points:['Financement réservé aux projets positifs pour le climat — exclusion stricte des projets à impact négatif','Intervention en fonds propres ou quasi-fonds propres','Investissement compris entre 1 et 5 M€','Priorité donnée aux projets d\'infrastructure "greenfield" (création de nouvelles capacités)'],
-   conseils:[],
-   exemple:[{l:'Projet : centrale solaire en toiture industrielle',v:'4 000 000 €'},{l:'Participation Terra Nea',v:'2 000 000 €'},{l:'Co-investissement privé',v:'2 000 000 €'},{l:'Modalité',v:'Prise de participation au capital'},{l:'Type de projet prioritaire',v:'Greenfield (nouvelle capacité)'}]},
+{id:"sudpretclimat",name:"Sud Pret Climat",full:"Pret a taux preferentiel — Region Sud / Bpifrance",type:"ecologie",
+ desc:"Pret a taux preferentiel a partir de 0,20% pour financer la transition ecologique des PME de PACA, sans garantie personnelle exigee.",
+ cible:"PME (au sens europeen), de plus de 3 ans ou disposant de 2 bilans sur 24 mois, financierement saines",
+ montant:"Pret entre 10 000 EUR et 300 000 EUR — taux preferentiel a partir de 0,20%",plafond:"Cofinancement obligatoire a parite (1 pour 1) avec apport prive ou concours bancaire",delai:"Candidatures au fil de l'eau",
+ contexte:"Avec son Plan Climat, la Region Sud accompagne les PME dans le financement de leurs projets de transition ecologique grace a un pret a taux preferentiel, en partenariat avec Bpifrance. Pret sans garantie personnelle exigee.",
+ projets:"Projets financables :\nTransition energetique et bas carbone : installation d'equipements moins energivores, flotte de vehicules electriques, autoconsommation solaire\nEconomies et gestion durable de l'eau : systemes de recuperation d'eau de pluie, reduction des consommations en process industriel\nEconomie circulaire : mise en place d'une ligne de recyclage interne, solutions de reparabilite et reemploi\nPreservation des ecosystemes : projets de depollution, restauration de zones naturelles\nFormation des equipes a l'ecoconception",
+ points:["Cofinancement obligatoire a parite (1 pour 1) avec apport prive ou concours bancaire","Exclusion des investissements immobiliers, patrimoniaux et operations de creation d'entreprise moins de 1 an","Entreprises financierement saines, a jour de leurs obligations sociales et fiscales","Duree du pret : 5 ans (1 an de differe) ou 7 ans (2 ans de differe)"],
+ conseils:[],
+ exemple:[{l:"Projet : installation solaire + equipements sobres",v:"200 000 EUR"},{l:"Pret Sud Pret Climat",v:"100 000 EUR"},{l:"Cofinancement bancaire (a parite)",v:"100 000 EUR"},{l:"Taux du pret",v:"A partir de 0,20%"},{l:"Garantie personnelle exigee",v:"Aucune"}]},
 
-  {id:'cedreInvest',name:'CÈDRE Investissement',full:'Financement des investissements durables — Région Sud',type:'ecologie',
-   desc:'Subvention d\'investissement entre 10 000 € et 100 000 € pour les structures de PACA souhaitant concrétiser leur plan d\'actions de transition écologique.',
-   cible:'Structures implantées en PACA ayant bénéficié d\'un accompagnement CÈDRE Premiers pas ou CÈDRE Ambition',
-   montant:'Subvention entre 10 000 € et 100 000 €',plafond:'Min. 10 000 € HT de dépenses éligibles',delai:'Candidatures au fil de l\'eau',
-   contexte:'Dispositif réservé aux structures ayant bénéficié d\'un accompagnement CÈDRE Premiers pas ou CÈDRE Ambition et souhaitant mettre en œuvre leur plan d\'actions. Objectif : passer du diagnostic à l\'action et accélérer la transition écologique et énergétique.',
-   projets:'Projets attendus :\n• Performance énergétique : remplacement d\'équipements énergivores, éclairage performant, isolation thermique\n• Réduction des consommations de ressources : systèmes d\'économie d\'eau, équipements de réutilisation\n• Économie circulaire et gestion des déchets : équipements de tri, valorisation des déchets, réemploi\n• Réduction des emballages et développement du vrac : équipements de distribution en vrac\n• Modernisation durable des outils de production : machines plus sobres en énergie et en matières premières',
-   points:['Le projet doit être directement issu des préconisations formulées dans le cadre de l\'accompagnement CÈDRE Premiers pas ou CÈDRE Ambition','Dispositif réservé aux structures ayant déjà bénéficié d\'un accompagnement CÈDRE','Les structures relevant de CÈDRE Premiers pas doivent présenter au minimum 10 000 € HT de dépenses éligibles'],
-   conseils:[],
-   exemple:[{l:'Investissement : remplacement équipements énergivores',v:'150 000 € HT'},{l:'Dépenses éligibles',v:'150 000 € HT'},{l:'Subvention CÈDRE Investissement',v:'Jusqu\'à 100 000 €'},{l:'Reste à charge',v:'50 000 €'},{l:'Prérequis',v:'Avoir bénéficié d\'un accompagnement CÈDRE'}]},
+{id:"terraNea",name:"Terra Nea",full:"Fonds regional dedie a la transition climatique",type:"ecologie",
+ desc:"Fonds en capital ou quasi-fonds propres entre 1 M EUR et 5 M EUR pour des projets d'infrastructure structurants de transition ecologique en Region Sud.",
+ cible:"PME et ETI engagees dans une transformation respectueuse de l'environnement",
+ montant:"Entre 1 M EUR et 5 M EUR — participation en capital ou quasi-fonds propres",plafond:"Priorite aux projets d'infrastructure greenfield (creation de nouvelles capacites)",delai:"Candidatures au fil de l'eau",
+ contexte:"Terra Nea est le fonds regional dedie a la transition climatique. Il vise a accelerer la transition energetique et ecologique en accompagnant des projets structurants et innovants, et renforcer la solidite financiere des entreprises par prise de participation directe au capital.",
+ projets:"Projets attendus :\nProduction d'energies renouvelables : centrales solaires, parcs eoliens, projets biomasse ou geothermie\nStockage et gestion de l'energie : smart grids, stations de pompage, bornes de recharge VE\nEfficacite energetique et construction durable : batiments bas carbone, isolation performante, eclairage public intelligent\nMobilite et reseaux intelligents : vehicules electriques ou hydrogene, mobilite partagee et autonome\nDecarbonation de l'industrie : electrification de procedes industriels, materiaux bas carbone, logistique verte\nEconomie circulaire : solutions de gestion et valorisation des dechets",
+ points:["Financement reserve aux projets positifs pour le climat — exclusion stricte des projets a impact negatif","Intervention en fonds propres ou quasi-fonds propres","Investissement compris entre 1 et 5 M EUR","Priorite donnee aux projets d'infrastructure greenfield (creation de nouvelles capacites)"],
+ conseils:[],
+ exemple:[{l:"Projet : centrale solaire en toiture industrielle",v:"4 000 000 EUR"},{l:"Participation Terra Nea",v:"2 000 000 EUR"},{l:"Co-investissement prive",v:"2 000 000 EUR"},{l:"Modalite",v:"Prise de participation au capital"},{l:"Type de projet prioritaire",v:"Greenfield (nouvelle capacite)"}]},
 
-  {id:'cedrePremierPas',name:'CÈDRE Premier Pas',full:'Accompagnement transition écologique — Région Sud',type:'ecologie',
-   desc:'Subvention forfaitaire de 3 000 € pour financer une prestation de conseil en transition écologique par un expert référencé par la Région Sud.',
-   cible:'PME implantées en PACA, CA ≤ 2 M€ au niveau du SIREN, n\'ayant pas déjà bénéficié d\'un accompagnement similaire',
-   montant:'Subvention forfaitaire : 3 000 €',plafond:'Facture minimum : 3 750 € HT acquittée depuis moins de 6 mois. CA ≤ 2 M€',delai:'Candidatures au fil de l\'eau',
-   contexte:'La Région Sud accompagne les TPE et PME dans leurs premières démarches de transition écologique. Dispositif destiné aux structures souhaitant engager leurs premières actions concrètes en faveur de la sobriété énergétique, de la réduction des déchets, de la décarbonation ou de l\'économie circulaire.',
-   projets:'Thématiques de conseil finançables :\n• Écoconception et gestion durable des ressources : analyse du cycle de vie, réduction des déchets, recyclage, réemploi, achats responsables\n• Mobilité et logistique durables : plans de mobilité, mutualisation des transports\n• Performance énergétique : rénovation énergétique, optimisation des consommations, énergies renouvelables\n• Réduction de l\'empreinte carbone : bilan carbone, stratégie climat, plans de réduction des émissions\n• Préservation des ressources naturelles : réduction des pollutions, préservation de la biodiversité, gestion durable de l\'eau\n• Stratégie RSE et management responsable : reporting extra-financier, démarche RSE, gouvernance durable\n• Adaptation au changement climatique : gestion des risques climatiques, sécurisation des approvisionnements',
-   points:['Aide forfaitaire de 3 000 € pour une prestation de conseil réalisée par un expert référencé par la Région Sud','Facture minimum : 3 750 € HT, acquittée depuis moins de 6 mois au moment de la demande','Structures éligibles limitées à 2 M€ de CA maximum au niveau du SIREN','Les bénéficiaires ne doivent pas avoir déjà bénéficié d\'un accompagnement similaire'],
-   conseils:[],
-   exemple:[{l:'Coût de la prestation de conseil',v:'3 750 € HT'},{l:'Subvention forfaitaire obtenue',v:'3 000 €'},{l:'Reste à charge',v:'750 € HT'},{l:'Taux de prise en charge',v:'80 %'},{l:'Débouché suivant',v:'CÈDRE Investissement (jusqu\'à 100 k€)'}]},
+{id:"cedreInvest",name:"CEDRE Investissement",full:"Financement des investissements durables — Region Sud",type:"ecologie",
+ desc:"Subvention d'investissement entre 10 000 EUR et 100 000 EUR pour les structures de PACA souhaitant concrétiser leur plan d'actions de transition ecologique.",
+ cible:"Structures implantees en PACA ayant beneficie d'un accompagnement CEDRE Premiers pas ou CEDRE Ambition",
+ montant:"Subvention entre 10 000 EUR et 100 000 EUR",plafond:"Min. 10 000 EUR HT de depenses eligibles",delai:"Candidatures au fil de l'eau",
+ contexte:"Dispositif reserve aux structures ayant beneficie d'un accompagnement CEDRE Premiers pas ou CEDRE Ambition et souhaitant mettre en oeuvre leur plan d'actions. Objectif : passer du diagnostic a l'action et accelerer la transition ecologique et energetique.",
+ projets:"Projets attendus :\nPerformance energetique : remplacement d'equipements energivores, eclairage performant, isolation thermique\nReduction des consommations de ressources : systemes d'economie d'eau, equipements de reutilisation\nEconomie circulaire et gestion des dechets : equipements de tri, valorisation des dechets, reemploi\nReduction des emballages et developpement du vrac : equipements de distribution en vrac\nModernisation durable des outils de production : machines plus sobres en energie et en matieres premieres",
+ points:["Le projet doit etre directement issu des preconisations formulees dans le cadre de l'accompagnement CEDRE Premiers pas ou CEDRE Ambition","Dispositif reserve aux structures ayant deja beneficie d'un accompagnement CEDRE","Les structures relevant de CEDRE Premiers pas doivent presenter au minimum 10 000 EUR HT de depenses eligibles"],
+ conseils:[],
+ exemple:[{l:"Investissement : remplacement equipements energivores",v:"150 000 EUR HT"},{l:"Depenses eligibles",v:"150 000 EUR HT"},{l:"Subvention CEDRE Investissement",v:"Jusqu'a 100 000 EUR"},{l:"Reste a charge",v:"50 000 EUR"},{l:"Prerequis",v:"Avoir beneficie d'un accompagnement CEDRE"}]},
 
-  {id:'monAssistantIA',name:'Mon Assistant IA',full:'Accompagnement IA pris en charge à 100 % — Région Sud',type:'digital',
-   desc:'Parcours conseil en intelligence artificielle entièrement pris en charge pour les PME, pour structurer leurs données et identifier leurs premiers cas d\'usage IA.',
-   cible:'PME ayant plus d\'un an d\'existence',
-   montant:'Prise en charge à 100 % de la prestation de conseil IA',plafond:'Aide limitée à un seul établissement — un SIRET ne peut bénéficier qu\'une fois',delai:'Candidatures au fil de l\'eau — procédure 100 % dématérialisée',
-   contexte:'Intégrer l\'intelligence artificielle dans votre activité avec un parcours conseil entièrement pris en charge. Objectifs : accélérer l\'adoption de l\'IA dans les PME régionales, développer des solutions IA adaptées à la maturité de chaque entreprise, cibler des impacts opérationnels concrets.',
-   projets:'Missions de conseil finançables :\n• Sensibilisation métier aux enjeux de l\'IA : ateliers sectoriels pour une PME du bâtiment, de la santé ou du transport\n• Diagnostic des données et des besoins internes : audit des données de production ou cartographie des données clients\n• Élaboration d\'un plan d\'actions IA & données : feuille de route progressive pour automatiser l\'analyse des ventes\n• Identification et cadrage d\'un premier cas d\'usage IA : chatbot interne, prévision de maintenance, recommandation produit\n• Appui à la mise en œuvre du projet IA : accompagnement pour choisir une solution d\'IA open source ou un prestataire d\'intégration sur mesure',
-   points:['Aide limitée à un seul établissement : un SIRET ne peut bénéficier du dispositif qu\'une fois','Prestation réalisée uniquement par des professionnels agréés par la Région','Procédure 100 % dématérialisée via la plateforme régionale (compte requis)','Échange préalable recommandé avec les services régionaux pour sécuriser l\'éligibilité'],
-   conseils:[],
-   exemple:[{l:'Coût de la prestation conseil IA',v:'Variable selon prestataire'},{l:'Prise en charge par la Région',v:'100 %'},{l:'Reste à charge pour l\'entreprise',v:'0 €'},{l:'Résultat attendu',v:'Feuille de route IA opérationnelle'},{l:'Limite',v:'1 seul bénéfice par SIRET'}]},
+{id:"cedrePremierPas",name:"CEDRE Premier Pas",full:"Accompagnement transition ecologique — Region Sud",type:"ecologie",
+ desc:"Subvention forfaitaire de 3 000 EUR pour financer une prestation de conseil en transition ecologique par un expert reference par la Region Sud.",
+ cible:"PME implantees en PACA, CA inferieur ou egal a 2 M EUR au niveau du SIREN, n'ayant pas deja beneficie d'un accompagnement similaire",
+ montant:"Subvention forfaitaire : 3 000 EUR",plafond:"Facture minimum : 3 750 EUR HT acquittee depuis moins de 6 mois. CA inferieur ou egal a 2 M EUR",delai:"Candidatures au fil de l'eau",
+ contexte:"La Region Sud accompagne les TPE et PME dans leurs premieres demarches de transition ecologique. Dispositif destine aux structures souhaitant engager leurs premieres actions concretes en faveur de la sobriete energetique, de la reduction des dechets, de la decarbonation ou de l'economie circulaire.",
+ projets:"Thematiques de conseil financables :\nEcoconception et gestion durable des ressources : analyse du cycle de vie, reduction des dechets, recyclage, reemploi, achats responsables\nMobilite et logistique durables : plans de mobilite, mutualisation des transports\nPerformance energetique : renovation energetique, optimisation des consommations, energies renouvelables\nReduction de l'empreinte carbone : bilan carbone, strategie climat, plans de reduction des emissions\nPreservation des ressources naturelles : reduction des pollutions, preservation de la biodiversite, gestion durable de l'eau\nStrategiie RSE et management responsable : reporting extra-financier, demarche RSE, gouvernance durable\nAdaptation au changement climatique : gestion des risques climatiques, securisation des approvisionnements",
+ points:["Aide forfaitaire de 3 000 EUR pour une prestation de conseil realisee par un expert reference par la Region Sud","Facture minimum : 3 750 EUR HT, acquittee depuis moins de 6 mois au moment de la demande","Structures eligibles limitees a 2 M EUR de CA maximum au niveau du SIREN","Les beneficiaires ne doivent pas avoir deja beneficie d'un accompagnement similaire"],
+ conseils:[],
+ exemple:[{l:"Cout de la prestation de conseil",v:"3 750 EUR HT"},{l:"Subvention forfaitaire obtenue",v:"3 000 EUR"},{l:"Reste a charge",v:"750 EUR HT"},{l:"Taux de prise en charge",v:"80%"},{l:"Debouche suivant",v:"CEDRE Investissement (jusqu'a 100 k EUR)"}]},
 
-  {id:'bouclierCyber',name:'Mon Bouclier Cyber',full:'Subvention cybersécurité — Région Sud',type:'digital',
-   desc:'Subvention entre 2 000 € et 5 000 € (50 % des dépenses) pour aider les PME à renforcer leur cybersécurité.',
-   cible:'PME au sens européen, de plus d\'un an, avec au moins 2 salariés',
-   montant:'Subvention entre 2 000 € et 5 000 € — 50 % des dépenses éligibles',plafond:'Plancher : 4 000 € HT. Factures de moins de 6 mois',delai:'Candidatures au fil de l\'eau',
-   contexte:'La multiplication des cyberattaques impose aux PME de renforcer leur protection. Ce dispositif vise à protéger les PME face aux cybermenaces, encourager la mise en conformité réglementaire (RGPD, RGS, NIS 2) et renforcer la résilience numérique à hauteur de 50 % des dépenses éligibles.',
-   projets:'Investissements finançables :\n• Mesures de protection réseau : installation d\'un pare-feu nouvelle génération, système de détection/prévention d\'intrusions\n• Mise en conformité réglementaire : outils RGPD, détecteurs d\'intrusion certifiés, sécurisation de la chaîne d\'approvisionnement\n• Protection de sites et applications web : solutions IAM, analyse de vulnérabilités d\'applications métiers\n• Veille et scanner de vulnérabilité : solution de cyberveille continue, scanner automatisé de vulnérabilités\n• Évolutions technologiques et investissements matériels : mise à jour de systèmes critiques, caméras connectées sécurisées, capteurs de surveillance réseau',
-   points:['Accompagnement préalable obligatoire (PASSI, Expert Cyber, MonAideCyber, Move 2 Digital, etc.)','Factures éligibles datées de moins de 6 mois au moment du dépôt','Plancher de dépenses fixé à 4 000 € HT','Dépenses de fonctionnement, abonnements seuls et formations hors investissement exclus'],
-   conseils:[],
-   exemple:[{l:'Investissement cybersécurité total',v:'10 000 € HT'},{l:'Taux de subvention',v:'50 %'},{l:'Subvention obtenue',v:'5 000 €'},{l:'Reste à charge',v:'5 000 € HT'},{l:'Plancher de dépenses requis',v:'4 000 € HT minimum'}]},
+{id:"monAssistantIA",name:"Mon Assistant IA",full:"Accompagnement IA pris en charge a 100% — Region Sud",type:"digital",
+ desc:"Parcours conseil en intelligence artificielle entierement pris en charge pour les PME, pour structurer leurs donnees et identifier leurs premiers cas d'usage IA.",
+ cible:"PME ayant plus d'un an d'existence",
+ montant:"Prise en charge a 100% de la prestation de conseil IA",plafond:"Aide limitee a un seul etablissement — un SIRET ne peut beneficier qu'une fois",delai:"Candidatures au fil de l'eau — procedure 100% dematerialisee",
+ contexte:"Integrer l'intelligence artificielle dans votre activite avec un parcours conseil entierement pris en charge. Objectifs : accelerer l'adoption de l'IA dans les PME regionales, developper des solutions IA adaptees a la maturite de chaque entreprise, cibler des impacts operationnels concrets.",
+ projets:"Missions de conseil financables :\nSensibilisation metier aux enjeux de l'IA : ateliers sectoriels pour une PME du batiment, de la sante ou du transport\nDiagnostic des donnees et des besoins internes : audit des donnees de production ou cartographie des donnees clients\nElaboration d'un plan d'actions IA et donnees : feuille de route progressive pour automatiser l'analyse des ventes\nIdentification et cadrage d'un premier cas d'usage IA : chatbot interne, prevision de maintenance, recommandation produit\nAppui a la mise en oeuvre du projet IA : accompagnement pour choisir une solution d'IA open source ou un prestataire d'integration sur mesure",
+ points:["Aide limitee a un seul etablissement : un SIRET ne peut beneficier du dispositif qu'une fois","Prestation realisee uniquement par des professionnels agrees par la Region","Procedure 100% dematerialisee via la plateforme regionale (compte requis)","Echange prealable recommande avec les services regionaux pour securiser l'eligibilite"],
+ conseils:[],
+ exemple:[{l:"Cout de la prestation conseil IA",v:"Variable selon prestataire"},{l:"Prise en charge par la Region",v:"100%"},{l:"Reste a charge pour l'entreprise",v:"0 EUR"},{l:"Resultat attendu",v:"Feuille de route IA operationnelle"},{l:"Limite",v:"1 seul benefice par SIRET"}]},
 
-  {id:'hebergTouristique',name:'Hébergement Touristique',full:'Soutien à l\'hébergement touristique — Région Sud',type:'tourisme',
-   desc:'Subvention d\'investissement jusqu\'à 100 000 € pour les hébergements touristiques de Région Sud souhaitant se moderniser, monter en gamme ou améliorer leur accessibilité.',
-   cible:'Hôtels indépendants / Hôtellerie de plein air / Villages et centres de vacances',
-   montant:'Jusqu\'à 100 000 €',plafond:'Minimum d\'investissement : 15 k€ HT (7 k€ HT pour équipements cyclotouristes)',delai:'Candidatures au fil de l\'eau',
-   contexte:'La Région Sud accompagne les hébergements touristiques dans leurs projets de modernisation afin de renforcer leur attractivité. Trois objectifs : accélérer la transition environnementale, améliorer l\'accessibilité et les conditions d\'accueil, monter en gamme et développer l\'attractivité touristique.',
-   projets:'Investissements finançables :\n• Performance environnementale : économies d\'énergie, réduction des consommations d\'eau, équipements sobres, accueil des cyclotouristes\n• Accessibilité : aménagements pour personnes en situation de handicap, label Tourisme & Handicap\n• Accueil des saisonniers : création ou rénovation de logements destinés aux salariés saisonniers\n• Montée en gamme : travaux permettant l\'obtention d\'un classement supérieur (jusqu\'à 4 étoiles ou 4 épis)\n• Diversification de l\'offre touristique : espaces bien-être, équipements aquatiques, solutions numériques améliorant l\'expérience client',
-   points:['Subvention pouvant atteindre 100 k€ selon la nature du projet','Montant minimum d\'investissement : 15 k€ HT (7 k€ HT pour les équipements dédiés aux clientèles vélo)','Prime Développement Durable de 5 k€ à 10 k€ pour les établissements obtenant ou renouvelant un label environnemental reconnu'],
-   conseils:[],
-   exemple:[{l:'Projet : travaux de montée en gamme (4 étoiles)',v:'250 000 € HT'},{l:'Subvention Hébergement Touristique',v:'Jusqu\'à 100 000 €'},{l:'Prime Développement Durable (label env.)',v:'+5 000 € à 10 000 €'},{l:'Total aide possible',v:'Jusqu\'à 110 000 €'},{l:'Reste à charge',v:'~ 140 000 €'}]},
+{id:"bouclierCyber",name:"Mon Bouclier Cyber",full:"Subvention cybersecurite — Region Sud",type:"digital",
+ desc:"Subvention entre 2 000 EUR et 5 000 EUR (50% des depenses) pour aider les PME a renforcer leur cybersecurite.",
+ cible:"PME au sens europeen, de plus d'un an, avec au moins 2 salaries",
+ montant:"Subvention entre 2 000 EUR et 5 000 EUR — 50% des depenses eligibles",plafond:"Plancher : 4 000 EUR HT. Factures de moins de 6 mois",delai:"Candidatures au fil de l'eau",
+ contexte:"La multiplication des cyberattaques impose aux PME de renforcer leur protection. Ce dispositif vise a proteger les PME face aux cybermenaces, encourager la mise en conformite reglementaire (RGPD, RGS, NIS 2) et renforcer la resilience numerique a hauteur de 50% des depenses eligibles.",
+ projets:"Investissements financables :\nMesures de protection reseau : installation d'un pare-feu nouvelle generation, systeme de detection/prevention d'intrusions\nMise en conformite reglementaire : outils RGPD, detecteurs d'intrusion certifies, securisation de la chaine d'approvisionnement\nProtection de sites et applications web : solutions IAM, analyse de vulnerabilites d'applications metiers\nVeille et scanner de vulnerabilite : solution de cyberveille continue, scanner automatise de vulnerabilites\nEvolutions technologiques et investissements materiels : mise a jour de systemes critiques, cameras connectees securisees, capteurs de surveillance reseau",
+ points:["Accompagnement prealable obligatoire (PASSI, Expert Cyber, MonAideCyber, Move 2 Digital, etc.)","Factures eligibles datees de moins de 6 mois au moment du depot","Plancher de depenses fixe a 4 000 EUR HT","Depenses de fonctionnement, abonnements seuls et formations hors investissement exclus"],
+ conseils:[],
+ exemple:[{l:"Investissement cybersecurite total",v:"10 000 EUR HT"},{l:"Taux de subvention",v:"50%"},{l:"Subvention obtenue",v:"5 000 EUR"},{l:"Reste a charge",v:"5 000 EUR HT"},{l:"Plancher de depenses requis",v:"4 000 EUR HT minimum"}]},
 
-  {id:'cirBpi',name:'CIR & Aides Bpifrance',full:'Évolution jurisprudentielle — positions à sécuriser',type:'fiscal',
-   desc:'Le traitement des aides Bpifrance dans le calcul du CIR fait aujourd\'hui débat. Une décision du TA de Paris (janvier 2026) change la donne pour les exercices passés.',
-   cible:'Entreprises bénéficiaires du CIR ayant reçu des aides Bpifrance',
-   montant:'Enjeu variable selon les montants de CIR et d\'aides Bpifrance reçues',plafond:'Impact potentiel sur les exercices antérieurs à 2025',delai:'LFI 2025 applicable pour l\'avenir — exercices passés encore discutés',
-   contexte:'Le traitement des aides Bpifrance dans le calcul du CIR fait aujourd\'hui débat. Jusqu\'à présent, la pratique consistait à déduire les aides publiques des dépenses éligibles afin d\'éviter tout double financement public. Toutefois, le cadre est resté incertain, avec des positions divergentes en jurisprudence.\n\nLa loi de finances 2025 est venue recadrer clairement le traitement pour l\'avenir, en confirmant l\'obligation de déduction. En revanche, ces incertitudes demeurent pour les exercices antérieurs.\n\nDans ce contexte, le Tribunal administratif de Paris (janvier 2026) retient une lecture différente : les aides Bpifrance n\'auraient pas à être déduites du CIR, car Bpifrance n\'est pas une entité de droit public. Le cadre est ainsi clarifié pour l\'avenir, mais reste discuté pour le passé.',
-   projets:'Deux situations à distinguer :\n• Pour les exercices à partir de 2025 (LFI 2025) : obligation de déduire les aides Bpifrance des dépenses éligibles au CIR — cadre clarifié.\n• Pour les exercices antérieurs à 2025 : position encore discutée. Le TA de Paris (janvier 2026) considère que Bpifrance n\'est pas une entité de droit public, donc ses aides n\'auraient pas à être déduites du CIR. Des opportunités de réclamation ou de sécurisation de positions existent selon les situations.',
-   points:['LFI 2025 confirme l\'obligation de déduction pour l\'avenir — cadre stabilisé','Pour les exercices antérieurs, la jurisprudence TA Paris (janvier 2026) ouvre des possibilités de positions alternatives','Risque de prescription : agir rapidement pour préserver les droits sur les exercices passés','Istrium accompagne dans la définition de la stratégie la plus adaptée à chaque situation'],
-   conseils:['Évaluez vos enjeux dès à présent : identifiez les impacts potentiels sur votre CIR et les exercices concernés, sans précipiter vos prises de position.','Tenez compte d\'un cadre non stabilisé : la jurisprudence récente coexiste avec une doctrine fiscale et un cadre législatif encore en évolution.','Appréciez les différentes positions possibles : selon votre situation, il est possible d\'adopter des approches différentes, avec des niveaux de risque distincts.','Préservez vos droits et vos marges de manœuvre : anticipez les options permettant d\'éviter la prescription et de conserver la possibilité d\'ajuster votre position en fonction des évolutions à venir.'],
-   exemple:[{l:'Aides Bpifrance reçues sur 3 exercices',v:'500 000 €'},{l:'CIR déclaré (avant déduction)',v:'300 000 €'},{l:'CIR après déduction (pratique actuelle)',v:'Réduit'},{l:'Selon TA Paris 2026 (Bpifrance ≠ entité publique)',v:'Pas de déduction requise'},{l:'Enjeu potentiel de réclamation',v:'À évaluer au cas par cas'}]},
+{id:"hebergTouristique",name:"Hebergement Touristique",full:"Soutien a l'hebergement touristique — Region Sud",type:"tourisme",
+ desc:"Subvention d'investissement jusqu'a 100 000 EUR pour les hebergements touristiques de Region Sud souhaitant se moderniser, monter en gamme ou ameliorer leur accessibilite.",
+ cible:"Hotels independants / Hotellerie de plein air / Villages et centres de vacances",
+ montant:"Jusqu'a 100 000 EUR",plafond:"Minimum d'investissement : 15 k EUR HT (7 k EUR HT pour equipements cyclotouristes)",delai:"Candidatures au fil de l'eau",
+ contexte:"La Region Sud accompagne les hebergements touristiques dans leurs projets de modernisation afin de renforcer leur attractivite. Trois objectifs : accelerer la transition environnementale, ameliorer l'accessibilite et les conditions d'accueil, monter en gamme et developper l'attractivite touristique.",
+ projets:"Investissements financables :\nPerformance environnementale : economies d'energie, reduction des consommations d'eau, equipements sobres, accueil des cyclotouristes\nAccessibilite : amenagements pour personnes en situation de handicap, label Tourisme et Handicap\nAccueil des saisonniers : creation ou renovation de logements destines aux salaries saisonniers\nMontee en gamme : travaux permettant l'obtention d'un classement superieur (jusqu'a 4 etoiles ou 4 epis)\nDiversification de l'offre touristique : espaces bien-etre, equipements aquatiques, solutions numeriques ameliorant l'experience client",
+ points:["Subvention pouvant atteindre 100 k EUR selon la nature du projet","Montant minimum d'investissement : 15 k EUR HT (7 k EUR HT pour les equipements dedies aux clienteles velo)","Prime Developpement Durable de 5 k EUR a 10 k EUR pour les etablissements obtenant ou renouvelant un label environnemental reconnu"],
+ conseils:[],
+ exemple:[{l:"Projet : travaux de montee en gamme (4 etoiles)",v:"250 000 EUR HT"},{l:"Subvention Hebergement Touristique",v:"Jusqu'a 100 000 EUR"},{l:"Prime Developpement Durable (label env.)",v:"+5 000 EUR a 10 000 EUR"},{l:"Total aide possible",v:"Jusqu'a 110 000 EUR"},{l:"Reste a charge",v:"~140 000 EUR"}]},
 
-  {id:'assuranceProspection',name:'Assurance Prospection',full:'Bpifrance — Boostez vos exportations viticoles',type:'viticole',
-   desc:'Levier stratégique Bpifrance pour sécuriser la démarche export des exploitants viticoles : jusqu\'à 65 % des dépenses de prospection soutenues, avec filet de sécurité en cas d\'échec commercial.',
-   cible:'Exploitants viticoles souhaitant structurer et sécuriser leur démarche export sur de nouveaux marchés',
-   montant:'Jusqu\'à 65 % des dépenses de prospection — 50 % versé à la signature, solde après justification',plafond:'En cas d\'échec commercial : remboursement limité à 30 % de l\'indemnité totale',delai:'Candidatures permanentes — dépenses éligibles uniquement après la date de dépôt',
-   contexte:'Dans un contexte de concurrence mondiale accrue et de recherche de nouveaux débouchés, l\'Assurance Prospection de Bpifrance est un levier stratégique pour les exploitants viticoles souhaitant structurer et sécuriser leur démarche export sur de nouveaux pays.\n\nFonctionnement en 3 étapes :\n1. Vous investissez dans la prospection (salons, voyages, marketing, recrutement…)\n2. Bpifrance vous soutient jusqu\'à 65 % de vos dépenses sous forme d\'indemnité (50 % versé à la signature du contrat, solde après justification)\n3. En cas d\'échec commercial, vous ne remboursez que 30 % de l\'indemnité totale',
-   projets:'Dépenses éligibles — toutes les actions directement liées à la conquête de marchés étrangers :\n• Actions commerciales : salons (Wine Paris, Vinexpo, ProWein…), agents commerciaux\n• Études & conseil : traductions, études de marché, accompagnement juridique\n• Ressources humaines : recrutement de personnel export (ADV, direction commerciale…)\n• Frais de mission : déplacements, hébergement, logistique terrain',
-   points:['Seules les dépenses engagées après la date de dépôt de la demande sont éligibles — anticiper est indispensable','L\'assurance prospection exige de déclarer des zones de prospection précises (Europe et pays tiers)','En cas d\'échec commercial, le remboursement est limité à 30 % de l\'indemnité totale','Chaque dépense devra être justifiée dans l\'état récapitulatif en fin de programme — conservez toutes les factures'],
-   conseils:['Anticipez le dépôt de votre demande : seules les dépenses engagées après la date de dépôt seront prises en compte pour le financement.','Sélectionnez les marchés cibles avec soin : l\'assurance prospection exige de déclarer des zones de prospection précises en Europe et pays tiers où la société souhaite se développer.','Construisez un budget prévisionnel détaillé : un budget clair et rigoureusement justifié augmente vos chances de recevoir un montant d\'aide important.','Valorisez les forces de votre projet : un dossier argumenté, mettant en avant votre potentiel de développement à l\'export, votre savoir-faire et vos projets commerciaux concrets.','Soyez rigoureux tout au long de la prospection : chaque dépense devra être justifiée dans l\'état récapitulatif en fin de programme — conservez vos factures et suivez vos dépenses de près.'],
-   exemple:[{l:'Budget prospection annuel',v:'50 000 €'},{l:'Soutien Bpifrance (65 %)',v:'32 500 €'},{l:'Versement à la signature (50 %)',v:'16 250 €'},{l:'Solde après justification',v:'16 250 €'},{l:'En cas d\'échec commercial',v:'Remboursement limité à 9 750 €'}]},name:'FAM Investissements',full:'FranceAgriMer — Investissements vitivinicoles',type:'viticole',
-   desc:'AAP annuel de FranceAgriMer pour soutenir les investissements de modernisation des entreprises vitivinicoles. Prochain AAP attendu janvier-février 2026.',
-   cible:'Entreprises vitivinicoles (exploitants, caves coopératives, négociants)',
-   montant:'Subvention jusqu\'à 30 % — 35 % pour investissements environnementaux ou nouveaux installés',plafond:'Variable selon AAP',   delai:'À confirmer — dates officielles du prochain AAP non encore publiées (AAP 2025 clos)',
-   contexte:'FranceAgriMer lance chaque année un appel à projets pour soutenir les investissements des entreprises vitivinicoles. Objectif : moderniser l\'outil de production et renforcer la compétitivité des exploitations, en France et à l\'export.',
-   projets:'Investissements finançables :\n• Achat de matériel neuf pour la vinification, l\'élevage, le conditionnement et le stockage\n• Construction ou rénovation de bâtiments liés à la production\n• Création ou aménagement de caveaux de vente et salles de dégustation\n\nFinancement :\n• Subvention jusqu\'à 30 %\n• +5 % pour les investissements environnementaux et les nouveaux installés',
-   points:['L\'AAP 2025 est clos — le prochain ouvre en janvier-février 2026 : anticipez dès maintenant','Préparez votre dossier en avance : devis, plans, justificatifs — les demandes incomplètes sont systématiquement rejetées','Valorisez les critères environnementaux : équipements sobres en énergie, gestion des effluents, isolation (+5 %)','Maîtrisez les exigences techniques du règlement : plafonds, pièces, surfaces, dates','Préparez-vous à la phase de liquidation : factures, pièces justificatives, contrôles'],
-   conseils:['Préparez votre dossier en avance : réunissez devis, plans, justificatifs… Les demandes incomplètes sont systématiquement rejetées.','Valorisez les critères environnementaux : équipements sobres en énergie, gestion des effluents, isolation… Ces choix peuvent augmenter le taux de subvention de +5 %.','Maîtrisez les exigences techniques du règlement : plafonds, pièces, surfaces, dates… Une bonne compréhension des règles FranceAgriMer évite les erreurs d\'inéligibilité ou de rejet.','Préparez-vous à la phase de liquidation : le versement de l\'aide n\'est pas automatique — factures, pièces justificatives, contrôles… Le suivi du projet jusqu\'à son terme est aussi important que le montage initial.'],
-   exemple:[{l:'Investissement total (matériel + bâtiment)',v:'100 000 €'},{l:'Taux standard',v:'30 %'},{l:'Subvention standard',v:'30 000 €'},{l:'Avec critères environnementaux (+5 %)',v:'35 %'},{l:'Subvention majorée',v:'35 000 €'},{l:'Reste à charge',v:'65 000 €'}]},
+{id:"famInvest",name:"FAM Investissements",full:"FranceAgriMer — Investissements vitivinicoles",type:"viticole",
+ desc:"AAP annuel de FranceAgriMer pour soutenir les investissements de modernisation des entreprises vitivinicoles.",
+ cible:"Entreprises vitivinicoles (exploitants, caves cooperatives, negociants)",
+ montant:"Subvention jusqu'a 30% — 35% pour investissements environnementaux ou nouveaux installes",plafond:"Variable selon AAP",delai:"A confirmer — dates officielles du prochain AAP non encore publiees (AAP 2025 clos)",
+ contexte:"FranceAgriMer lance chaque annee un appel a projets pour soutenir les investissements des entreprises vitivinicoles. Objectif : moderniser l'outil de production et renforcer la competitivite des exploitations, en France et a l'export.",
+ projets:"Investissements financables :\nAchat de materiel neuf pour la vinification, l'elevage, le conditionnement et le stockage\nConstruction ou renovation de batiments lies a la production\nCreation ou amenagement de caveaux de vente et salles de degustation\n\nFinancement :\nSubvention jusqu'a 30%\n+5% pour les investissements environnementaux et les nouveaux installes",
+ points:["L'AAP 2025 est clos — anticiper des maintenant pour le prochain AAP","Preparez votre dossier en avance : devis, plans, justificatifs — les demandes incompletes sont systematiquement rejetees","Valorisez les criteres environnementaux : equipements sobres en energie, gestion des effluents, isolation (+5%)","Maitrisez les exigences techniques du reglement : plafonds, pieces, surfaces, dates","Preparez-vous a la phase de liquidation : factures, pieces justificatives, controles"],
+ conseils:["Preparez votre dossier en avance : reunissez devis, plans, justificatifs. Les demandes incompletes sont systematiquement rejetees.","Valorisez les criteres environnementaux : equipements sobres en energie, gestion des effluents, isolation. Ces choix peuvent augmenter le taux de subvention de +5%.","Maitrisez les exigences techniques du reglement : plafonds, pieces, surfaces, dates. Une bonne comprehension des regles FranceAgriMer evite les erreurs d'ineligibilite ou de rejet.","Preparez-vous a la phase de liquidation : le versement de l'aide n'est pas automatique. Factures, pieces justificatives, controles : le suivi du projet jusqu'a son terme est aussi important que le montage initial."],
+ exemple:[{l:"Investissement total (materiel + batiment)",v:"100 000 EUR"},{l:"Taux standard",v:"30%"},{l:"Subvention standard",v:"30 000 EUR"},{l:"Avec criteres environnementaux (+5%)",v:"35%"},{l:"Subvention majoree",v:"35 000 EUR"},{l:"Reste a charge",v:"65 000 EUR"}]},
 
-  {id:'famPPT',name:'FAM / PPT',full:'FranceAgriMer — Promotion des vins en Pays Tiers',type:'viticole',
-   desc:'AAP annuel de FranceAgriMer — 50 % des dépenses de promotion subventionnées pour valoriser les vins français à l\'international, hors UE.',
-   cible:'Entreprises vitivinicoles, interprofessions, coopératives, négociants, GIE',
-   montant:'50 % des dépenses éligibles',plafond:'Variable selon programme — vins AOP, IGP ou VSIG avec cépage',delai:'Dépôt entre septembre et octobre chaque année — pour actions de janvier à décembre de l\'année suivante',
-   contexte:'Chaque année, FranceAgriMer lance un appel à projets "Promotion Pays Tiers". Objectif : soutenir les actions de valorisation à l\'international et renforcer l\'image des vins français. Zones éligibles : tous les pays hors Union européenne (incl. Monaco, Andorre, Hong Kong…).',
-   projets:'Actions financées à 50 % :\n• Dégustations et salons internationaux\n• Relations presse et voyages presse\n• Réseaux sociaux et campagnes d\'information\n• Études de marché\n\nConditions :\n• Zones éligibles : tous pays hors UE (incl. Monaco, Andorre, Hong Kong…)\n• Vins concernés : AOP, IGP ou VSIG avec cépage\n• Bénéficiaires : entreprises vitivinicoles, interprofessions, coopératives, négociants, GIE',
-   points:['L\'AAP revient chaque année à l\'automne — anticipation indispensable','Seules les actions de communication et promotion listées dans le règlement sont éligibles (pas de remises, prospection terrain ou envois d\'échantillons non encadrés)','La demande de paiement exige factures, justificatifs complets et preuves d\'exécution irréprochables','Chaque action financée doit répondre à un objectif de développement export clair'],
-   conseils:['Ciblez vos marchés avec stratégie : vos actions doivent viser à ouvrir, diversifier ou consolider vos débouchés. Définissez votre position actuelle et vos objectifs pour chaque pays.','Concevez des actions alignées avec les règles : seules les actions de communication et de promotion listées dans le règlement sont éligibles. Les dépenses commerciales directes ne sont pas prises en charge.','Rendez votre programme lisible et stratégique : chaque action financée doit répondre à un objectif de développement export clair.','Anticipez la demande de paiement et les contrôles : le versement de l\'aide dépend d\'un dossier de demande de paiement irréprochable — factures, justificatifs complets, preuves d\'exécution.'],
-   exemple:[{l:'Budget promotion annuel (salons + presse)',v:'80 000 €'},{l:'Dépenses éligibles',v:'80 000 €'},{l:'Subvention FAM/PPT (50 %)',v:'40 000 €'},{l:'Reste à charge',v:'40 000 €'},{l:'Zones couvertes',v:'Tous pays hors UE'}]}
+{id:"famPPT",name:"FAM / PPT",full:"FranceAgriMer — Promotion des vins en Pays Tiers",type:"viticole",
+ desc:"AAP annuel de FranceAgriMer — 50% des depenses de promotion subventionnees pour valoriser les vins francais a l'international, hors UE.",
+ cible:"Entreprises vitivinicoles, interprofessions, cooperatives, negociants, GIE",
+ montant:"50% des depenses eligibles",plafond:"Variable selon programme — vins AOP, IGP ou VSIG avec cepage",delai:"Depot entre septembre et octobre chaque annee — pour actions de janvier a decembre de l'annee suivante",
+ contexte:"Chaque annee, FranceAgriMer lance un appel a projets Promotion Pays Tiers. Objectif : soutenir les actions de valorisation a l'international et renforcer l'image des vins francais. Zones eligibles : tous les pays hors Union europeenne (incl. Monaco, Andorre, Hong Kong).",
+ projets:"Actions financees a 50% :\nDegustations et salons internationaux\nRelations presse et voyages presse\nReseaux sociaux et campagnes d'information\nEtudes de marche\n\nConditions :\nZones eligibles : tous pays hors UE\nVins concernes : AOP, IGP ou VSIG avec cepage\nBeneficiaires : entreprises vitivinicoles, interprofessions, cooperatives, negociants, GIE",
+ points:["L'AAP revient chaque annee a l'automne — anticipation indispensable","Seules les actions de communication et promotion listees dans le reglement sont eligibles (pas de remises, prospection terrain ou envois d'echantillons non encadres)","La demande de paiement exige factures, justificatifs complets et preuves d'execution irreprochables","Chaque action financee doit repondre a un objectif de developpement export clair"],
+ conseils:["Ciblez vos marches avec strategie : vos actions doivent viser a ouvrir, diversifier ou consolider vos debouches. Definissez votre position actuelle et vos objectifs pour chaque pays.","Concevez des actions alignees avec les regles : seules les actions de communication et de promotion listees dans le reglement sont eligibles. Les depenses commerciales directes ne sont pas prises en charge.","Rendez votre programme lisible et strategique : chaque action financee doit repondre a un objectif de developpement export clair.","Anticipez la demande de paiement et les controles : le versement de l'aide depend d'un dossier de demande de paiement irreprochable : factures, justificatifs complets, preuves d'execution."],
+ exemple:[{l:"Budget promotion annuel (salons + presse)",v:"80 000 EUR"},{l:"Depenses eligibles",v:"80 000 EUR"},{l:"Subvention FAM/PPT (50%)",v:"40 000 EUR"},{l:"Reste a charge",v:"40 000 EUR"},{l:"Zones couvertes",v:"Tous pays hors UE"}]},
+
+{id:"assuranceProspection",name:"Assurance Prospection",full:"Bpifrance — Boostez vos exportations viticoles",type:"viticole",
+ desc:"Levier strategique Bpifrance pour securiser la demarche export des exploitants viticoles : jusqu'a 65% des depenses de prospection soutenues, avec filet de securite en cas d'echec commercial.",
+ cible:"Exploitants viticoles souhaitant structurer et securiser leur demarche export sur de nouveaux marches",
+ montant:"Jusqu'a 65% des depenses de prospection — 50% verse a la signature, solde apres justification",plafond:"En cas d'echec commercial : remboursement limite a 30% de l'indemnite totale",delai:"Candidatures permanentes — depenses eligibles uniquement apres la date de depot",
+ contexte:"Dans un contexte de concurrence mondiale accrue et de recherche de nouveaux debouches, l'Assurance Prospection de Bpifrance est un levier strategique pour les exploitants viticoles souhaitant structurer et securiser leur demarche export sur de nouveaux pays.\n\nFonctionnement en 3 etapes :\n1. Vous investissez dans la prospection (salons, voyages, marketing, recrutement)\n2. Bpifrance vous soutient jusqu'a 65% de vos depenses sous forme d'indemnite (50% verse a la signature du contrat, solde apres justification)\n3. En cas d'echec commercial, vous ne remboursez que 30% de l'indemnite totale",
+ projets:"Depenses eligibles — toutes les actions directement liees a la conquete de marches etrangers :\nActions commerciales : salons (Wine Paris, Vinexpo, ProWein), agents commerciaux\nEtudes et conseil : traductions, etudes de marche, accompagnement juridique\nRessources humaines : recrutement de personnel export (ADV, direction commerciale)\nFrais de mission : deplacements, hebergement, logistique terrain",
+ points:["Seules les depenses engagees apres la date de depot de la demande sont eligibles — anticiper est indispensable","L'assurance prospection exige de declarer des zones de prospection precises (Europe et pays tiers)","En cas d'echec commercial, le remboursement est limite a 30% de l'indemnite totale","Chaque depense devra etre justifiee dans l'etat recapitulatif en fin de programme — conservez toutes les factures"],
+ conseils:["Anticipez le depot de votre demande : seules les depenses engagees apres la date de depot seront prises en compte pour le financement.","Selectionnez les marches cibles avec soin : l'assurance prospection exige de declarer des zones de prospection precises en Europe et pays tiers ou la societe souhaite se developper.","Construisez un budget previsionnel detaille : un budget clair et rigoureusement justifie augmente vos chances de recevoir un montant d'aide important.","Valorisez les forces de votre projet : un dossier argumente, mettant en avant votre potentiel de developpement a l'export, votre savoir-faire et vos projets commerciaux concrets.","Soyez rigoureux tout au long de la prospection : chaque depense devra etre justifiee dans l'etat recapitulatif en fin de programme : conservez vos factures et suivez vos depenses de pres."],
+ exemple:[{l:"Budget prospection annuel",v:"50 000 EUR"},{l:"Soutien Bpifrance (65%)",v:"32 500 EUR"},{l:"Versement a la signature (50%)",v:"16 250 EUR"},{l:"Solde apres justification",v:"16 250 EUR"},{l:"En cas d'echec commercial",v:"Remboursement limite a 9 750 EUR"}]}
 ];
 
 function handleAccess(){
-  const email=document.getElementById('inp-email').value.trim();
-  const tel=document.getElementById('inp-tel').value.trim();
-  if(!email||!email.includes('@')){alert('Merci de saisir un e-mail valide.');return;}
-  if(!tel||tel.length<8){alert('Merci de saisir un numéro valide.');return;}
-  LEADS.push({email,tel,ts:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
+  var email=document.getElementById('inp-email').value.trim();
+  var tel=document.getElementById('inp-tel').value.trim();
+  if(!email||email.indexOf('@')<0){alert('Merci de saisir un e-mail valide.');return;}
+  if(!tel||tel.length<8){alert('Merci de saisir un numero valide.');return;}
+  LEADS.push({email:email,tel:tel,ts:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
   updateLeads();renderCards('tous');
   document.getElementById('screen-gate').classList.remove('active');
   document.getElementById('screen-catalogue').classList.add('active');
 }
+
 function renderCards(filter){
-  const list=filter==='tous'?D:D.filter(d=>d.type===filter);
-  document.getElementById('cards-grid').innerHTML=list.map(d=>`
-    <div class="sub-card" onclick="openDetail('${d.id}')">
-      <div class="card-top">
-        <div><div class="card-name">${d.name}</div><div class="card-full">${d.full}</div></div>
-        <span class="tag">${TAG[d.type]}</span>
-      </div>
-      <div class="card-desc">${d.desc}</div>
-      <div class="card-footer">
-        <span class="card-montant">${d.montant.substring(0,55)}${d.montant.length>55?'…':''}</span>
-        <span class="card-cible">${d.cible.substring(0,45)}${d.cible.length>45?'…':''}</span>
-      </div>
-    </div>`).join('');
+  var list=filter==='tous'?D:D.filter(function(d){return d.type===filter;});
+  document.getElementById('cards-grid').innerHTML=list.map(function(d){
+    return '<div class="sub-card" onclick="openDetail(\''+d.id+'\')">'
+      +'<div class="card-top"><div><div class="card-name">'+d.name+'</div><div class="card-full">'+d.full+'</div></div>'
+      +'<span class="tag">'+TAG[d.type]+'</span></div>'
+      +'<div class="card-desc">'+d.desc+'</div>'
+      +'<div class="card-footer"><span class="card-montant">'+d.montant.substring(0,55)+(d.montant.length>55?'...':'')+'</span>'
+      +'<span class="card-cible">'+d.cible.substring(0,45)+(d.cible.length>45?'...':'')+'</span></div></div>';
+  }).join('');
 }
+
 function filterCards(f,el){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');renderCards(f);
+  var chips=document.querySelectorAll('.chip');
+  for(var i=0;i<chips.length;i++){chips[i].classList.remove('active');}
+  el.classList.add('active');
+  renderCards(f);
 }
+
 function openDetail(id){
-  const d=D.find(x=>x.id===id);
+  var d=null;
+  for(var i=0;i<D.length;i++){if(D[i].id===id){d=D[i];break;}}
+  if(!d)return;
   document.getElementById('detail-name').textContent=d.name;
-  const conseilsHTML=d.conseils&&d.conseils.length>0?`
-    <div class="conseils-box">
-      <h4>Les conseils d'Istrium</h4>
-      <ol>${d.conseils.map(c=>`<li>${c}</li>`).join('')}</ol>
-    </div>`:'';
-  const exempleHTML=d.exemple&&d.exemple.length>0?`
-    <div class="exemple-box">
-      <h4>Exemple chiffré</h4>
-      ${d.exemple.map((r,i)=>`<div class="exemple-row"><span class="exemple-label">${r.l}</span><span class="exemple-val${i===d.exemple.length-1||r.l.toLowerCase().includes('obtenu')||r.l.toLowerCase().includes('subvention')||r.l.toLowerCase().includes('total aide')||r.l.toLowerCase().includes('économie')||r.l.toLowerCase().includes('prise en charge')?` highlight`:''}">${r.v}</span></div>`).join('')}
-    </div>`:'';
-  document.getElementById('detail-body').innerHTML=`
-    <span class="tag-full">${TAG[d.type]}</span>
-    <div class="kpi-grid">
-      <div class="kpi-box"><div class="kpi-label">Montant / taux</div><div class="kpi-val">${d.montant}</div></div>
-      <div class="kpi-box"><div class="kpi-label">Plafond / seuil</div><div class="kpi-val">${d.plafond}</div></div>
-      <div class="kpi-box"><div class="kpi-label">Bénéficiaires</div><div class="kpi-val">${d.cible}</div></div>
-      <div class="kpi-box"><div class="kpi-label">Calendrier</div><div class="kpi-val">${d.delai}</div></div>
-    </div>
-    <div class="detail-section"><h4>Contexte & objectifs</h4><p>${d.contexte}</p></div>
-    <div class="detail-section"><h4>Projets / dépenses éligibles</h4><p style="white-space:pre-line">${d.projets}</p></div>
-    <div class="points-box"><h4>Points d'attention</h4><ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
-    ${conseilsHTML}
-    ${exempleHTML}
-    <div class="contact-box">
-      <div class="lbl">Diagnostic gratuit — Contact Istrium</div>
-      <div class="cemail">fabien.esclapez@istrium.fr</div>
-      <div class="ctel">06 03 55 58 12</div>
-      <div class="csite">istrium.fr</div>
-    </div>`;
+  var conseilsHTML='';
+  if(d.conseils&&d.conseils.length>0){
+    conseilsHTML='<div class="conseils-box"><h4>Les conseils d\'Istrium</h4><ol>'
+      +d.conseils.map(function(c){return '<li>'+c+'</li>';}).join('')
+      +'</ol></div>';
+  }
+  var exempleHTML='';
+  if(d.exemple&&d.exemple.length>0){
+    exempleHTML='<div class="exemple-box"><h4>Exemple chiffre</h4>'
+      +d.exemple.map(function(r,i){
+        var hl=(i===d.exemple.length-1||r.l.toLowerCase().indexOf('obtenu')>=0||r.l.toLowerCase().indexOf('subvention')>=0||r.l.toLowerCase().indexOf('total aide')>=0||r.l.toLowerCase().indexOf('economie')>=0||r.l.toLowerCase().indexOf('prise en charge')>=0)?' highlight':'';
+        return '<div class="exemple-row"><span class="exemple-label">'+r.l+'</span><span class="exemple-val'+hl+'">'+r.v+'</span></div>';
+      }).join('')+'</div>';
+  }
+  document.getElementById('detail-body').innerHTML=
+    '<span class="tag-full">'+TAG[d.type]+'</span>'
+    +'<div class="kpi-grid">'
+    +'<div class="kpi-box"><div class="kpi-label">Montant / taux</div><div class="kpi-val">'+d.montant+'</div></div>'
+    +'<div class="kpi-box"><div class="kpi-label">Plafond / seuil</div><div class="kpi-val">'+d.plafond+'</div></div>'
+    +'<div class="kpi-box"><div class="kpi-label">Beneficiaires</div><div class="kpi-val">'+d.cible+'</div></div>'
+    +'<div class="kpi-box"><div class="kpi-label">Calendrier</div><div class="kpi-val">'+d.delai+'</div></div>'
+    +'</div>'
+    +'<div class="detail-section"><h4>Contexte et objectifs</h4><p style="white-space:pre-line">'+d.contexte+'</p></div>'
+    +'<div class="detail-section"><h4>Projets / depenses eligibles</h4><p style="white-space:pre-line">'+d.projets+'</p></div>'
+    +'<div class="points-box"><h4>Points d\'attention</h4><ul>'+d.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul></div>'
+    +conseilsHTML
+    +exempleHTML
+    +'<div class="contact-box">'
+    +'<div class="lbl">Diagnostic gratuit — Contact Istrium</div>'
+    +'<div class="cemail">fabien.esclapez@istrium.fr</div>'
+    +'<div class="ctel">06 03 55 58 12</div>'
+    +'<div class="csite">istrium.fr</div>'
+    +'</div>';
   document.getElementById('screen-detail').classList.add('open');
 }
+
 function closeDetail(){document.getElementById('screen-detail').classList.remove('open');}
+
 function askPin(){
-  const pin=prompt('Code d\'accès Istrium :');
+  var pin=prompt('Code acces Istrium :');
   if(pin==='1306'){toggleLeads();}
   else if(pin!==null){alert('Code incorrect.');}
 }
+
 function toggleLeads(){document.getElementById('leads-panel').classList.toggle('leads-hidden');}
+
 function exportCSV(){
-  const rows=[['Email','Téléphone','Heure'],...LEADS.map(l=>[l.email,l.tel,l.ts])];
-  const csv=rows.map(r=>r.join(';')).join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
+  var rows=[['Email','Telephone','Heure']];
+  for(var i=0;i<LEADS.length;i++){rows.push([LEADS[i].email,LEADS[i].tel,LEADS[i].ts]);}
+  var csv=rows.map(function(r){return r.join(';');}).join('\n');
+  var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
   a.href=url;a.download='contacts-salon-istrium.csv';a.click();
   URL.revokeObjectURL(url);
 }
+
 function updateLeads(){
   document.getElementById('btn-export').style.display=LEADS.length>0?'block':'none';
-  document.getElementById('leads-list').innerHTML=LEADS.length===0
-    ?'<p style="font-size:13px;color:#ccc;padding:4px 0;">Aucun contact pour l\'instant.</p>'
-    :LEADS.map(l=>`<div class="lead-row"><span class="lead-email">${l.email}</span><span class="lead-tel">${l.tel}</span><span class="lead-time">${l.ts}</span></div>`).join('');
+  if(LEADS.length===0){
+    document.getElementById('leads-list').innerHTML='<p style="font-size:13px;color:#ccc;padding:4px 0;">Aucun contact pour l\'instant.</p>';
+  } else {
+    document.getElementById('leads-list').innerHTML=LEADS.map(function(l){
+      return '<div class="lead-row"><span class="lead-email">'+l.email+'</span><span class="lead-tel">'+l.tel+'</span><span class="lead-time">'+l.ts+'</span></div>';
+    }).join('');
+  }
 }
+
 renderCards('tous');
 </script>
 </body>
