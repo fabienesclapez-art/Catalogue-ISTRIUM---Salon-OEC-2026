@@ -172,6 +172,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
 
 <script>
 var LEADS=[];
+var AT_P1="pat035CjevlQxzc98";
+var AT_P2="b4ae2f91923e2f116a1bbdd4e9fbeb21d9c78c9d2e4180559b12e976ac073585";
+var AT_BASE="apptSvRqx3AUQlELY";
+var AT_TABLE="tblibnD8xuMuQ034s";
 var TAG={fiscal:"Credit d'impot",statut:"Statut",regional:"Region Sud",ecologie:"Ecologie",digital:"Digital",viticole:"Viticole",tourisme:"Tourisme"};
 
 var D=[
@@ -346,12 +350,22 @@ var D=[
  exemple:[{l:"Budget prospection annuel",v:"50 000 EUR"},{l:"Soutien Bpifrance (65%)",v:"32 500 EUR"},{l:"Versement a la signature (50%)",v:"16 250 EUR"},{l:"Solde apres justification",v:"16 250 EUR"},{l:"En cas d'echec commercial",v:"Remboursement limite a 9 750 EUR"}]}
 ];
 
+function saveToAirtable(email,tel){
+  var token=AT_P1+"."+AT_P2;
+  fetch("https://api.airtable.com/v0/"+AT_BASE+"/"+AT_TABLE,{
+    method:"POST",
+    headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"},
+    body:JSON.stringify({fields:{Email:email,Telephone:tel}})
+  }).catch(function(e){console.log("Airtable:",e);});
+}
+
 function handleAccess(){
   var email=document.getElementById('inp-email').value.trim();
   var tel=document.getElementById('inp-tel').value.trim();
   if(!email||email.indexOf('@')<0){alert('Merci de saisir un e-mail valide.');return;}
   if(!tel||tel.length<8){alert('Merci de saisir un numero valide.');return;}
   LEADS.push({email:email,tel:tel,ts:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
+  saveToAirtable(email,tel);
   updateLeads();renderCards('tous');
   document.getElementById('screen-gate').classList.remove('active');
   document.getElementById('screen-catalogue').classList.add('active');
