@@ -172,9 +172,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
 
 <script>
 const LEADS=[];
-const AIRTABLE_TOKEN='patiCpkZ9aRnHgRxz.8b3137200a202858500d40da7b002543a584836019d76c40e4eab485215ea3bc';
-const AIRTABLE_BASE='apptSvRqx3AUQlELY';
-const AIRTABLE_TABLE='tblibnD8xuMuQ034s';
 const TAG={fiscal:'Crédit d\'impôt',statut:'Statut',regional:'Région Sud',ecologie:'Écologie',digital:'Digital',viticole:'Viticole',tourisme:'Tourisme'};
 
 const D=[
@@ -347,23 +344,12 @@ const D=[
    exemple:[{l:'Budget promotion annuel (salons + presse)',v:'80 000 €'},{l:'Dépenses éligibles',v:'80 000 €'},{l:'Subvention FAM/PPT (50 %)',v:'40 000 €'},{l:'Reste à charge',v:'40 000 €'},{l:'Zones couvertes',v:'Tous pays hors UE'}]}
 ];
 
-async function saveToAirtable(email, tel){
-  try{
-    await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`,{
-      method:'POST',
-      headers:{'Authorization':`Bearer ${AIRTABLE_TOKEN}`,'Content-Type':'application/json'},
-      body:JSON.stringify({fields:{Email:email,Téléphone:tel}})
-    });
-  }catch(e){console.error('Airtable error:',e);}
-}
-
-async function handleAccess(){
+function handleAccess(){
   const email=document.getElementById('inp-email').value.trim();
   const tel=document.getElementById('inp-tel').value.trim();
   if(!email||!email.includes('@')){alert('Merci de saisir un e-mail valide.');return;}
   if(!tel||tel.length<8){alert('Merci de saisir un numéro valide.');return;}
   LEADS.push({email,tel,ts:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
-  saveToAirtable(email,tel);
   updateLeads();renderCards('tous');
   document.getElementById('screen-gate').classList.remove('active');
   document.getElementById('screen-catalogue').classList.add('active');
