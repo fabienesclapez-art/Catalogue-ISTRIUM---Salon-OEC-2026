@@ -172,6 +172,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#faf8f7;color:#1a1a1a;mi
 
 <script>
 const LEADS=[];
+const AIRTABLE_TOKEN='patiCpkZ9aRnHgRxz.8b3137200a202858500d40da7b002543a584836019d76c40e4eab485215ea3bc';
+const AIRTABLE_BASE='apptSvRqx3AUQlELY';
+const AIRTABLE_TABLE='tblibnD8xuMuQ034s';
 const TAG={fiscal:'Crédit d\'impôt',statut:'Statut',regional:'Région Sud',ecologie:'Écologie',digital:'Digital',viticole:'Viticole',tourisme:'Tourisme'};
 
 const D=[
@@ -203,7 +206,7 @@ const D=[
    projets:'Deux phases soutenues :\n• Faisabilité (max 18 mois) : études de marché ou d\'usage, validations techniques, études PI ou réglementaires, preuve de concept, planification RDI.\n• Développement/Pré-industrialisation (max 24 mois) : première série industrielle, montée en échelle, innovation de process ou de service.\n\nDomaines stratégiques éligibles : Naturalité, Énergie (stockage, hydrogène), Écologie (éco-conception, recyclage), Aérospatial, Défense (cybersécurité, simulation), Optique/Photonique, Chimie verte/Matériaux avancés, Santé/Silver économie, Économie bleue, Culture/Sport/Tourisme.',
    points:['Condition financière : fonds propres ≥ montant d\'aide demandé','Dépôt en continu jusqu\'au 30/09/2026, dans la limite des crédits disponibles','Assiette minimale de dépenses : 150 k€ pour les PME et 300 k€ pour les ETI','Deux phases distinctes : subvention (faisabilité) et avance remboursable (développement)'],
    conseils:[],
-   exemple:[{l:'Phase : Faisabilité',v:'Étude de marché + validation technique'},{l:'Budget total du projet',v:'200 000 €'},{l:'Subvention obtenue',v:'Jusqu\'à 200 000 €'},{l:'Phase : Développement',v:'Première série industrielle'},{l:'Budget total du projet',v:'800 000 €'},{l:'Avance remboursable obtenue',v:'Jusqu\'à 500 000 €'}]},
+   exemple:[{l:'Phase Faisabilité — budget projet',v:'400 000 €'},{l:'Subvention (jusqu\'à 50 % des dépenses)',v:'Jusqu\'à 200 000 €'},{l:'Phase Développement — budget projet',v:'1 000 000 €'},{l:'Avance remboursable (jusqu\'à 50 %)',v:'Jusqu\'à 500 000 €'},{l:'Reste à charge (faisabilité)',v:'~ 200 000 €'}]},
 
   {id:'axesSud2030',name:'Région Sud 2030',full:'3 axes stratégiques : Bois · Défense · Économie à impact',type:'regional',
    desc:'La Région Sud concentre ses financements 2026-2030 sur trois filières : filière bois, industries de défense et économie à impact/ESS.',
@@ -305,10 +308,28 @@ const D=[
    conseils:[],
    exemple:[{l:'Projet : travaux de montée en gamme (4 étoiles)',v:'250 000 € HT'},{l:'Subvention Hébergement Touristique',v:'Jusqu\'à 100 000 €'},{l:'Prime Développement Durable (label env.)',v:'+5 000 € à 10 000 €'},{l:'Total aide possible',v:'Jusqu\'à 110 000 €'},{l:'Reste à charge',v:'~ 140 000 €'}]},
 
-  {id:'famInvest',name:'FAM Investissements',full:'FranceAgriMer — Investissements vitivinicoles',type:'viticole',
+  {id:'cirBpi',name:'CIR & Aides Bpifrance',full:'Évolution jurisprudentielle — positions à sécuriser',type:'fiscal',
+   desc:'Le traitement des aides Bpifrance dans le calcul du CIR fait aujourd\'hui débat. Une décision du TA de Paris (janvier 2026) change la donne pour les exercices passés.',
+   cible:'Entreprises bénéficiaires du CIR ayant reçu des aides Bpifrance',
+   montant:'Enjeu variable selon les montants de CIR et d\'aides Bpifrance reçues',plafond:'Impact potentiel sur les exercices antérieurs à 2025',delai:'LFI 2025 applicable pour l\'avenir — exercices passés encore discutés',
+   contexte:'Le traitement des aides Bpifrance dans le calcul du CIR fait aujourd\'hui débat. Jusqu\'à présent, la pratique consistait à déduire les aides publiques des dépenses éligibles afin d\'éviter tout double financement public. Toutefois, le cadre est resté incertain, avec des positions divergentes en jurisprudence.\n\nLa loi de finances 2025 est venue recadrer clairement le traitement pour l\'avenir, en confirmant l\'obligation de déduction. En revanche, ces incertitudes demeurent pour les exercices antérieurs.\n\nDans ce contexte, le Tribunal administratif de Paris (janvier 2026) retient une lecture différente : les aides Bpifrance n\'auraient pas à être déduites du CIR, car Bpifrance n\'est pas une entité de droit public. Le cadre est ainsi clarifié pour l\'avenir, mais reste discuté pour le passé.',
+   projets:'Deux situations à distinguer :\n• Pour les exercices à partir de 2025 (LFI 2025) : obligation de déduire les aides Bpifrance des dépenses éligibles au CIR — cadre clarifié.\n• Pour les exercices antérieurs à 2025 : position encore discutée. Le TA de Paris (janvier 2026) considère que Bpifrance n\'est pas une entité de droit public, donc ses aides n\'auraient pas à être déduites du CIR. Des opportunités de réclamation ou de sécurisation de positions existent selon les situations.',
+   points:['LFI 2025 confirme l\'obligation de déduction pour l\'avenir — cadre stabilisé','Pour les exercices antérieurs, la jurisprudence TA Paris (janvier 2026) ouvre des possibilités de positions alternatives','Risque de prescription : agir rapidement pour préserver les droits sur les exercices passés','Istrium accompagne dans la définition de la stratégie la plus adaptée à chaque situation'],
+   conseils:['Évaluez vos enjeux dès à présent : identifiez les impacts potentiels sur votre CIR et les exercices concernés, sans précipiter vos prises de position.','Tenez compte d\'un cadre non stabilisé : la jurisprudence récente coexiste avec une doctrine fiscale et un cadre législatif encore en évolution.','Appréciez les différentes positions possibles : selon votre situation, il est possible d\'adopter des approches différentes, avec des niveaux de risque distincts.','Préservez vos droits et vos marges de manœuvre : anticipez les options permettant d\'éviter la prescription et de conserver la possibilité d\'ajuster votre position en fonction des évolutions à venir.'],
+   exemple:[{l:'Aides Bpifrance reçues sur 3 exercices',v:'500 000 €'},{l:'CIR déclaré (avant déduction)',v:'300 000 €'},{l:'CIR après déduction (pratique actuelle)',v:'Réduit'},{l:'Selon TA Paris 2026 (Bpifrance ≠ entité publique)',v:'Pas de déduction requise'},{l:'Enjeu potentiel de réclamation',v:'À évaluer au cas par cas'}]},
+
+  {id:'assuranceProspection',name:'Assurance Prospection',full:'Bpifrance — Boostez vos exportations viticoles',type:'viticole',
+   desc:'Levier stratégique Bpifrance pour sécuriser la démarche export des exploitants viticoles : jusqu\'à 65 % des dépenses de prospection soutenues, avec filet de sécurité en cas d\'échec commercial.',
+   cible:'Exploitants viticoles souhaitant structurer et sécuriser leur démarche export sur de nouveaux marchés',
+   montant:'Jusqu\'à 65 % des dépenses de prospection — 50 % versé à la signature, solde après justification',plafond:'En cas d\'échec commercial : remboursement limité à 30 % de l\'indemnité totale',delai:'Candidatures permanentes — dépenses éligibles uniquement après la date de dépôt',
+   contexte:'Dans un contexte de concurrence mondiale accrue et de recherche de nouveaux débouchés, l\'Assurance Prospection de Bpifrance est un levier stratégique pour les exploitants viticoles souhaitant structurer et sécuriser leur démarche export sur de nouveaux pays.\n\nFonctionnement en 3 étapes :\n1. Vous investissez dans la prospection (salons, voyages, marketing, recrutement…)\n2. Bpifrance vous soutient jusqu\'à 65 % de vos dépenses sous forme d\'indemnité (50 % versé à la signature du contrat, solde après justification)\n3. En cas d\'échec commercial, vous ne remboursez que 30 % de l\'indemnité totale',
+   projets:'Dépenses éligibles — toutes les actions directement liées à la conquête de marchés étrangers :\n• Actions commerciales : salons (Wine Paris, Vinexpo, ProWein…), agents commerciaux\n• Études & conseil : traductions, études de marché, accompagnement juridique\n• Ressources humaines : recrutement de personnel export (ADV, direction commerciale…)\n• Frais de mission : déplacements, hébergement, logistique terrain',
+   points:['Seules les dépenses engagées après la date de dépôt de la demande sont éligibles — anticiper est indispensable','L\'assurance prospection exige de déclarer des zones de prospection précises (Europe et pays tiers)','En cas d\'échec commercial, le remboursement est limité à 30 % de l\'indemnité totale','Chaque dépense devra être justifiée dans l\'état récapitulatif en fin de programme — conservez toutes les factures'],
+   conseils:['Anticipez le dépôt de votre demande : seules les dépenses engagées après la date de dépôt seront prises en compte pour le financement.','Sélectionnez les marchés cibles avec soin : l\'assurance prospection exige de déclarer des zones de prospection précises en Europe et pays tiers où la société souhaite se développer.','Construisez un budget prévisionnel détaillé : un budget clair et rigoureusement justifié augmente vos chances de recevoir un montant d\'aide important.','Valorisez les forces de votre projet : un dossier argumenté, mettant en avant votre potentiel de développement à l\'export, votre savoir-faire et vos projets commerciaux concrets.','Soyez rigoureux tout au long de la prospection : chaque dépense devra être justifiée dans l\'état récapitulatif en fin de programme — conservez vos factures et suivez vos dépenses de près.'],
+   exemple:[{l:'Budget prospection annuel',v:'50 000 €'},{l:'Soutien Bpifrance (65 %)',v:'32 500 €'},{l:'Versement à la signature (50 %)',v:'16 250 €'},{l:'Solde après justification',v:'16 250 €'},{l:'En cas d\'échec commercial',v:'Remboursement limité à 9 750 €'}]},name:'FAM Investissements',full:'FranceAgriMer — Investissements vitivinicoles',type:'viticole',
    desc:'AAP annuel de FranceAgriMer pour soutenir les investissements de modernisation des entreprises vitivinicoles. Prochain AAP attendu janvier-février 2026.',
    cible:'Entreprises vitivinicoles (exploitants, caves coopératives, négociants)',
-   montant:'Subvention jusqu\'à 30 % — 35 % pour investissements environnementaux ou nouveaux installés',plafond:'Variable selon AAP',delai:'AAP 2025 clos — prochain AAP attendu janvier-février 2026. Anticipez !',
+   montant:'Subvention jusqu\'à 30 % — 35 % pour investissements environnementaux ou nouveaux installés',plafond:'Variable selon AAP',   delai:'À confirmer — dates officielles du prochain AAP non encore publiées (AAP 2025 clos)',
    contexte:'FranceAgriMer lance chaque année un appel à projets pour soutenir les investissements des entreprises vitivinicoles. Objectif : moderniser l\'outil de production et renforcer la compétitivité des exploitations, en France et à l\'export.',
    projets:'Investissements finançables :\n• Achat de matériel neuf pour la vinification, l\'élevage, le conditionnement et le stockage\n• Construction ou rénovation de bâtiments liés à la production\n• Création ou aménagement de caveaux de vente et salles de dégustation\n\nFinancement :\n• Subvention jusqu\'à 30 %\n• +5 % pour les investissements environnementaux et les nouveaux installés',
    points:['L\'AAP 2025 est clos — le prochain ouvre en janvier-février 2026 : anticipez dès maintenant','Préparez votre dossier en avance : devis, plans, justificatifs — les demandes incomplètes sont systématiquement rejetées','Valorisez les critères environnementaux : équipements sobres en énergie, gestion des effluents, isolation (+5 %)','Maîtrisez les exigences techniques du règlement : plafonds, pièces, surfaces, dates','Préparez-vous à la phase de liquidation : factures, pièces justificatives, contrôles'],
@@ -326,12 +347,23 @@ const D=[
    exemple:[{l:'Budget promotion annuel (salons + presse)',v:'80 000 €'},{l:'Dépenses éligibles',v:'80 000 €'},{l:'Subvention FAM/PPT (50 %)',v:'40 000 €'},{l:'Reste à charge',v:'40 000 €'},{l:'Zones couvertes',v:'Tous pays hors UE'}]}
 ];
 
-function handleAccess(){
+async function saveToAirtable(email, tel){
+  try{
+    await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`,{
+      method:'POST',
+      headers:{'Authorization':`Bearer ${AIRTABLE_TOKEN}`,'Content-Type':'application/json'},
+      body:JSON.stringify({fields:{Email:email,Téléphone:tel}})
+    });
+  }catch(e){console.error('Airtable error:',e);}
+}
+
+async function handleAccess(){
   const email=document.getElementById('inp-email').value.trim();
   const tel=document.getElementById('inp-tel').value.trim();
   if(!email||!email.includes('@')){alert('Merci de saisir un e-mail valide.');return;}
   if(!tel||tel.length<8){alert('Merci de saisir un numéro valide.');return;}
   LEADS.push({email,tel,ts:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
+  saveToAirtable(email,tel);
   updateLeads();renderCards('tous');
   document.getElementById('screen-gate').classList.remove('active');
   document.getElementById('screen-catalogue').classList.add('active');
