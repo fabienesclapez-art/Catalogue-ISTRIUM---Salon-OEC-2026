@@ -355,7 +355,7 @@ function saveToAirtable(email,tel){
   fetch("https://api.airtable.com/v0/"+AT_BASE+"/"+AT_TABLE,{
     method:"POST",
     headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"},
-    body:JSON.stringify({fields:{Email:email,Telephone:tel}})
+    body:JSON.stringify({fields:{Email:email,"T\u00e9l\u00e9phone":tel}})
   }).catch(function(e){console.log("Airtable:",e);});
 }
 
